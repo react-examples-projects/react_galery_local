@@ -1,39 +1,9 @@
-import { useState, useEffect, useRef } from "react";
+import useImages from "./hooks/useImages";
 import ImageList from "./ImageList";
 import Loader from "./loaders/Loader";
 
-const getImages = async () => {
-  const xhr = await fetch("http://localhost:5000/posts");
-  const res = await xhr.json();
-  return res;
-};
-   
 function App() {
-  const [images, setImages] = useState([]);
-  const [isLoading, setLoading] = useState(true);
-  const inputFile = useRef(null);
-
-  useEffect(() => {
-    getImages().then((data) => {
-      setLoading(false);
-      setImages(data);
-    });
-  }, []);
-
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    const body = new FormData(e.target);
-    const xhr = await fetch("http://localhost:5000/post", {
-      method: "POST",
-      body,
-    });
-
-    const res = await xhr.json();
-    console.log(res);
-    const data = res instanceof Array ? res : [res];
-    setImages((imgs) => [...imgs, ...data]);
-    inputFile.current.value = null;
-  };
+  const { images, isLoading, inputFile, handleSubmit } = useImages();
 
   return (
     <div className="App container container-images">

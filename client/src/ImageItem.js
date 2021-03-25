@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { BiTrash, BiEditAlt } from "react-icons/bi";
 
-export default function ImageItem({ url, title }) {
+export default function ImageItem({ url, title, id }) {
   const [isEditing, setEditing] = useState(false);
   const toggleEditing = () => setEditing((e) => !e);
 
@@ -9,6 +9,8 @@ export default function ImageItem({ url, title }) {
     e.preventDefault();
     toggleEditing();
   };
+
+  const deleteItem = (id) => {};
 
   return (
     <div className="col-lg-4 col-md-3 col-sm-6 mb-4 col-image">
@@ -30,7 +32,7 @@ export default function ImageItem({ url, title }) {
             <button className="btn p-1 me-1" onClick={toggleEditing}>
               <BiEditAlt />
             </button>
-            <button className="btn p-1">
+            <button className="btn p-1" onClick={() => deleteItem(id)}>
               <BiTrash />
             </button>
           </div>

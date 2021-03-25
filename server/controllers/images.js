@@ -42,10 +42,16 @@ async function getImagesDatabase() {
   return images;
 }
 
+async function deleteImageDatabase(id) {
+  const data = await ImageModel.deleteOne({ _id: id });
+  return data;
+}
+
 module.exports = {
   saveFileDatabase,
   createFiles,
   createOneFile,
   saveFilesDatabase,
   getImagesDatabase,
+  deleteImageDatabase,
 };

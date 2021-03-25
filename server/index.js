@@ -9,6 +9,7 @@ const { PORT } = require("./config/config");
 const {
   saveFilesDatabase,
   getImagesDatabase,
+  deleteImageDatabase,
 } = require("./controllers/images");
 
 // middlewares
@@ -35,6 +36,12 @@ app.post("/post", async (req, res) => {
 app.get("/posts", async (req, res) => {
   const images = await getImagesDatabase();
   res.json(images);
+});
+
+app.delete("/post/:id", async (req, res) => {
+  const id = req.params.id;
+  const data = await deleteImageDatabase(id);
+  res.json(data);
 });
 
 app.listen(PORT, () => {
