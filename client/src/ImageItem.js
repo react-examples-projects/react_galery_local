@@ -2,7 +2,7 @@ import { useState } from "react";
 import { BiTrash, BiEditAlt } from "react-icons/bi";
 import { deleteImage } from "./helpers/api";
 
-export default function ImageItem({ url, title, id, filename }) {
+export default function ImageItem({ url, title, id, filename, setImages }) {
   const [isEditing, setEditing] = useState(false);
   const toggleEditing = () => setEditing((e) => !e);
 
@@ -11,8 +11,12 @@ export default function ImageItem({ url, title, id, filename }) {
     toggleEditing();
   };
 
-  const deleteItem = (id) => {
-    deleteImage(id, filename);
+  const deleteItem = async (id) => {
+    const data = await deleteImage(id, filename);
+    setImages((imgs) => {
+      const filterImgs = imgs.filter((img) => img.id !== data.id);
+      return filterImgs;
+    });
   };
 
   return (

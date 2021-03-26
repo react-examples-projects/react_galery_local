@@ -23,6 +23,7 @@ export default function useImages() {
 
   return {
     images,
+    setImages,
     isLoading,
     inputFile,
     handleSubmit,

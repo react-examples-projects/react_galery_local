@@ -44,7 +44,7 @@ app.delete("/post/:id", async (req, res) => {
   const filename = req.body.filename;
   const data = await deleteImageDatabase(id);
   fs.unlink(`./uploads/${filename}`, () => {
-    res.json({ ...data, filename });
+    res.json({ filename, id });
   });
 });
 

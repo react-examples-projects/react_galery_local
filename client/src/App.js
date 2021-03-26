@@ -3,7 +3,7 @@ import ImageList from "./ImageList";
 import Loader from "./loaders/Loader";
 
 function App() {
-  const { images, isLoading, inputFile, handleSubmit } = useImages();
+  const { images, setImages, isLoading, inputFile, handleSubmit } = useImages();
 
   return (
     <div className="App container container-images">
@@ -34,7 +34,7 @@ function App() {
           Enviar
         </button>
       </form>
-      {isLoading ? <Loader /> : <ImageList images={images} />}
+      {isLoading ? <Loader /> : <ImageList {...{ images, setImages }} />}
     </div>
   );
 }
