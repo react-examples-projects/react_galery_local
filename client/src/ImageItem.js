@@ -1,7 +1,8 @@
 import { useState } from "react";
 import { BiTrash, BiEditAlt } from "react-icons/bi";
+import { deleteImage } from "./helpers/api";
 
-export default function ImageItem({ url, title, id }) {
+export default function ImageItem({ url, title, id, filename }) {
   const [isEditing, setEditing] = useState(false);
   const toggleEditing = () => setEditing((e) => !e);
 
@@ -10,10 +11,12 @@ export default function ImageItem({ url, title, id }) {
     toggleEditing();
   };
 
-  const deleteItem = (id) => {};
+  const deleteItem = (id) => {
+    deleteImage(id, filename);
+  };
 
   return (
-    <div className="col-lg-4 col-md-3 col-sm-6 mb-4 col-image">
+    <div className="col-lg-4 col-md-3 col-sm-6 mb-5 col-image">
       <figure className="w-100">
         <img src={url} alt="" className="img-fluid w-100 rounded-1 img-post" />
         <div className="d-flex align-items-center justify-content-between mt-2">

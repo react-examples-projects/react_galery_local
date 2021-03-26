@@ -6,6 +6,7 @@ async function saveFileDatabase(file) {
   const image = new ImageModel({
     url: `http://127.0.0.1:${PORT}/${file.name}`,
     title: "Unknow title",
+    filename: file.name,
   });
   const saved = await image.save();
   return saved;

@@ -1,4 +1,4 @@
-import { GET_POSTS, CREATE_POSTS } from "../config/config";
+import { GET_POSTS, CREATE_POSTS, DELETE_POST } from "../config/config";
 
 export const xhr = async (url, body = null, method = "GET") => {
   const xhr = await fetch(url, { method, body });
@@ -13,5 +13,12 @@ export const getImages = async () => {
 
 export const createImages = async (form) => {
   const res = await xhr(CREATE_POSTS, new FormData(form), "POST");
+  return res;
+};
+
+export const deleteImage = async (id, filename) => {
+  const data = new FormData();
+  data.append("filename", filename);
+  const res = await xhr(DELETE_POST(id), data, "DELETE");
   return res;
 };

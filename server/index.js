@@ -5,6 +5,7 @@ const fileUpload = require("express-fileupload");
 const morgan = require("morgan");
 const cors = require("cors");
 const app = express();
+const fs = require("fs");
 const { PORT } = require("./config/config");
 const {
   saveFilesDatabase,
@@ -40,8 +41,11 @@ app.get("/posts", async (req, res) => {
 
 app.delete("/post/:id", async (req, res) => {
   const id = req.params.id;
+  const filename = req.body.filename;
   const data = await deleteImageDatabase(id);
-  res.json(data);
+  fs.unlink(`./uploads/${filename}`, () => {
+    res.json({ ...data, filename });
+  });
 });
 
 app.listen(PORT, () => {

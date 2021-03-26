@@ -16,7 +16,12 @@ const createFile = (_path, file) => {
   fs.writeFileSync(createPath(_path, file), toData(file));
 };
 
-const formatFileProps = ({ title, url, _id }) => ({ title, url, id: _id });
+const formatFileProps = ({ title, url, _id, filename }) => ({
+  title,
+  url,
+  id: _id,
+  filename,
+});
 
 module.exports = {
   getName,
