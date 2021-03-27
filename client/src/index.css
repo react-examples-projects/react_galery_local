@@ -16,6 +16,16 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
+.loader-app > svg {
+  display: block;
+  margin: auto;
+  margin-top: 4rem;
+}
+
+.loader-item {
+  display: inline-block;
+}
+
 .container-images {
   max-width: 800px;
 }

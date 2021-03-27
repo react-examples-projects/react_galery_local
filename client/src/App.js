@@ -1,6 +1,7 @@
 import useImages from "./hooks/useImages";
 import ImageList from "./ImageList";
-import Loader from "./loaders/Loader";
+import "react-loader-spinner/dist/loader/css/react-spinner-loader.css";
+import Loader from "react-loader-spinner";
 
 function App() {
   const { images, setImages, isLoading, inputFile, handleSubmit } = useImages();
@@ -34,7 +35,17 @@ function App() {
           Enviar
         </button>
       </form>
-      {isLoading ? <Loader /> : <ImageList {...{ images, setImages }} />}
+      {isLoading ? (
+        <Loader
+          type="Oval"
+          color="#000000b2"
+          height={50}
+          width={50}
+          className="loader-app"
+        />
+      ) : (
+        <ImageList {...{ images, setImages }} />
+      )}
     </div>
   );
 }
