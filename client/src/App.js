@@ -2,39 +2,38 @@ import useImages from "./hooks/useImages";
 import ImageList from "./ImageList";
 import "react-loader-spinner/dist/loader/css/react-spinner-loader.css";
 import Loader from "react-loader-spinner";
+import headerImg from "./images/header.png";
 
 function App() {
   const { images, setImages, isLoading, inputFile, handleSubmit } = useImages();
 
   return (
     <div className="App container container-images">
-      <form
-        encType="multipart/form-data"
-        onSubmit={handleSubmit}
-        className="d-inline-block p-3 mt-4"
-      >
-        <div className="mb-3">
-          <label htmlFor="files" className="text-muted mb-2">
-            Subir imágenes
-          </label>
-          <input
-            type="file"
-            name="files"
-            id="files"
-            accept="image/*"
-            className="form-control form-control-sm"
-            ref={inputFile}
-            multiple
-          />
-        </div>
+      <header className="header-file p-3 px-4 my-4 shadow-sm">
+        <form encType="multipart/form-data" onSubmit={handleSubmit}>
+          <div className="mb-3">
+            <label htmlFor="files" className="mb-2">
+              <h4 className="title"> Subir imágenes</h4>
+            </label>
 
-        <button
-          type="submit"
-          className="btn btn-outline-secondary btn-sm d-block w-100"
-        >
-          Enviar
-        </button>
-      </form>
+            <input
+              type="file"
+              name="files"
+              id="files"
+              accept="image/*"
+              className="form-control w-auto"
+              ref={inputFile}
+              multiple
+            />
+          </div>
+
+          <button type="submit" className="btn px-5">
+            Enviar
+          </button>
+        </form>
+        <img src={headerImg} alt="Uploads your own images" className="header-image"/>
+      </header>
+
       {isLoading ? (
         <Loader
           type="Oval"
