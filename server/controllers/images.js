@@ -48,6 +48,11 @@ async function deleteImageDatabase(id) {
   return data;
 }
 
+async function editTitleImage(id, title) {
+  const data = await ImageModel.updateOne({ _id: id }, { title });
+  return data;
+}
+
 module.exports = {
   saveFileDatabase,
   createFiles,
@@ -55,4 +60,5 @@ module.exports = {
   saveFilesDatabase,
   getImagesDatabase,
   deleteImageDatabase,
+  editTitleImage,
 };

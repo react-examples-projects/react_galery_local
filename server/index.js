@@ -11,6 +11,7 @@ const {
   saveFilesDatabase,
   getImagesDatabase,
   deleteImageDatabase,
+  editTitleImage,
 } = require("./controllers/images");
 
 // middlewares
@@ -46,6 +47,13 @@ app.delete("/post/:id", async (req, res) => {
   fs.unlink(`./uploads/${filename}`, () => {
     res.json({ filename, id });
   });
+});
+
+app.put("/post/:id", async (req, res) => {
+  const id = req.params.id;
+  const { filename, title } = req.body;
+  const data = await editTitleImage(id, title);
+  res.json({ filename, id, title });
 });
 
 app.listen(PORT, () => {
