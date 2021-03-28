@@ -21,13 +21,13 @@ function App() {
               name="files"
               id="files"
               accept="image/*"
-              className="form-control w-auto"
+              className="form-control form-control-sm w-auto"
               ref={inputFile}
               multiple
             />
           </div>
 
-          <button type="submit" className="btn px-5">
+          <button type="submit" className="btn btn-sm px-5">
             Enviar
           </button>
         </form>
