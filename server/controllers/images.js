@@ -1,6 +1,6 @@
 const ImageModel = require("../models/Image");
 const { saveImageModel } = require("../helpers/models");
-const { formatFileProps } = require("../helpers/file");
+const { formatFileProps, toArrayFormatFile } = require("../helpers/file");
 
 async function saveFilesDatabase(files) {
   const imagesSaved = [];
@@ -16,13 +16,13 @@ async function saveFilesDatabase(files) {
   } else {
     await save(files, "Unknow title", new Date().toLocaleString());
   }
-  console.log(imagesSaved)
-  return imagesSaved;
+  console.log(imagesSaved);
+  return toArrayFormatFile(imagesSaved);
 }
 
 async function getImagesDatabase() {
-  const images = (await ImageModel.find({})).map(formatFileProps);
-  return images;
+  const images = await ImageModel.find({});
+  return toArrayFormatFile(images);
 }
 
 async function deleteImageDatabase(id) {
