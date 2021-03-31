@@ -32,6 +32,7 @@ function App() {
               className="form-control form-control-sm w-auto"
               ref={inputFile}
               multiple
+              required
             />
           </div>
 

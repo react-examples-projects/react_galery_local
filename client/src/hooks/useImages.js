@@ -19,8 +19,7 @@ export default function useImages() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     const res = await createImages(inputFile.current.files);
-    const data = res instanceof Array ? res : [res];
-    setImages((imgs) => [...imgs, ...data]);
+    setImages((imgs) => [...imgs, ...res]);
     inputFile.current.value = null;
   };
 

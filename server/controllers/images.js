@@ -1,17 +1,22 @@
 const ImageModel = require("../models/Image");
+const { saveImageModel } = require("../helpers/models");
 const { formatFileProps } = require("../helpers/file");
 
 async function saveFilesDatabase(files) {
   const imagesSaved = [];
-  for (const url of files) {
-    const image = new ImageModel({
-      url,
-      title: "Unknow title",
-      date: new Date().toLocaleString(),
-    });
-    const saved = await image.save();
+  const save = async (url, title, date) => {
+    const saved = await saveImageModel({ url, title, date });
     imagesSaved.push(saved);
+  };
+
+  if (Array.isArray(files)) {
+    for (const url of files) {
+      await save(url, "Unknow title", new Date().toLocaleString());
+    }
+  } else {
+    await save(files, "Unknow title", new Date().toLocaleString());
   }
+  console.log(imagesSaved)
   return imagesSaved;
 }
 
