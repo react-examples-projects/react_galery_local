@@ -4,6 +4,7 @@ import {
   DELETE_POST,
   EDIT_POST,
 } from "../config/config";
+import { toArrayUrlFiles } from "./file";
 
 export const xhr = async (url, body = null, method = "GET") => {
   const xhr = await fetch(url, {
@@ -19,8 +20,11 @@ export const getImages = async () => {
   return data;
 };
 
-export const createImages = async (form) => {
-  const res = await xhr(CREATE_POSTS, new FormData(form), "POST");
+export const createImages = async (files) => {
+  const data = new FormData();
+  const urlFiles = await toArrayUrlFiles(files);
+  for (const fileUrl of urlFiles) data.append("files[]", fileUrl);
+  const res = await xhr(CREATE_POSTS, data, "POST");
   return res;
 };
 
