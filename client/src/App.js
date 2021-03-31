@@ -3,9 +3,17 @@ import ImageList from "./ImageList";
 import "react-loader-spinner/dist/loader/css/react-spinner-loader.css";
 import Loader from "react-loader-spinner";
 import headerImg from "./images/header.png";
+import { BiError } from "react-icons/bi";
 
 function App() {
-  const { images, setImages, isLoading, inputFile, handleSubmit } = useImages();
+  const {
+    images,
+    setImages,
+    isLoading,
+    error,
+    inputFile,
+    handleSubmit,
+  } = useImages();
 
   return (
     <div className="App container container-images">
@@ -31,8 +39,19 @@ function App() {
             Enviar
           </button>
         </form>
-        <img src={headerImg} alt="Uploads your own images" className="header-image"/>
+        <img
+          src={headerImg}
+          alt="Uploads your own images"
+          className="header-image"
+        />
       </header>
+
+      {error && (
+        <h4 className="text-danger mt-5 d-flex align-items-center">
+          <BiError />
+          <span className="mx-2">Ocurrió un error, verifica tu conexión</span>
+        </h4>
+      )}
 
       {isLoading ? (
         <Loader

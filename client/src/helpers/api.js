@@ -1,24 +1,38 @@
-import {
-  GET_POSTS,
-  CREATE_POSTS,
-  DELETE_POST,
-  EDIT_POST,
-} from "../config/config";
+import { GET_POSTS, DELETE_POST, EDIT_POST, TABLE_REF } from "../config/config";
+import { toUrlFile } from "./file";
 
 export const xhr = async (url, body = null, method = "GET") => {
-  const xhr = await fetch(url, { method, body });
+  const xhr = await fetch(url, {
+    method,
+    body,
+  });
   const res = await xhr.json();
   return res;
 };
 
-export const getImages = async () => {
-  const res = await xhr(GET_POSTS);
-  return res;
+export const getImages = (cb) => {
+  TABLE_REF.on("value", (snapshot) => {
+    const imagesObj = [];
+    snapshot.forEach((row) => {
+      imagesObj.push(row.val());
+    });
+    cb(imagesObj);
+  });
 };
 
-export const createImages = async (form) => {
-  const res = await xhr(CREATE_POSTS, new FormData(form), "POST");
-  return res;
+export const createImages = (files) => {
+  for (const file of files) {
+    const id = `${file.name.trim()}_${Date.now()}`;
+    toUrlFile(file, (url) => {
+      TABLE_REF.push({
+        id,
+        url,
+        date: new Date().toLocaleString(),
+        title: "Unknow title",
+      });
+      console.log(`[${file.name} - ${file.size} bytes] Agregado a firebase`);
+    });
+  }
 };
 
 export const deleteImage = async (id, filename) => {

@@ -4,27 +4,30 @@ import { getImages, createImages } from "../helpers/api";
 export default function useImages() {
   const [images, setImages] = useState([]);
   const [isLoading, setLoading] = useState(true);
+  const [error, setError] = useState(false);
   const inputFile = useRef(null);
 
   useEffect(() => {
-    getImages().then((data) => {
-      setLoading(false);
+    setLoading(true);
+    
+    getImages((data) => {
       setImages(data);
+      setLoading(false);
+      console.log(data);
     });
   }, []);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const res = await createImages(e.target);
-    const data = res instanceof Array ? res : [res];
-    setImages((imgs) => [...imgs, ...data]);
-    inputFile.current.value = null;
+    const files = inputFile.current.files;
+    createImages(files);
   };
 
   return {
     images,
     setImages,
     isLoading,
+    error,
     inputFile,
     handleSubmit,
   };
