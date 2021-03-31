@@ -28,13 +28,13 @@ app.get("/", (req, res) => {
     data: "Index route empty",
   });
 });
-
+ 
 app.post("/post", async (req, res) => {
   const files = req.files.files;
   const saved = await saveFilesDatabase(files);
   res.json(saved);
 });
-
+  
 app.get("/posts", async (req, res) => {
   const images = await getImagesDatabase();
   res.json(images);

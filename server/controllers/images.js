@@ -1,10 +1,13 @@
 const ImageModel = require("../models/Image");
-const { PORT } = require("../config/config");
-const { createFile, formatFileProps } = require("../helpers/file");
+const { formatFileProps } = require("../helpers/file");
+const path = require("path");
 
 async function saveFileDatabase(file) {
+  const ext = path.extname(file.name).replace(".", "");
+  let url = `data:image/${ext};base64`;
+  url += Buffer.from(file.data).toString("base64");
   const image = new ImageModel({
-    url: `http://127.0.0.1:${PORT}/${file.name}`,
+    url,
     title: "Unknow title",
     filename: file.name,
   });
@@ -15,7 +18,6 @@ async function saveFileDatabase(file) {
 async function createFiles(files) {
   const data = [];
   for (const file of files) {
-    createFile("./uploads", file);
     const fileSaved = await saveFileDatabase(file);
     data.push(formatFileProps(fileSaved));
   }
@@ -23,7 +25,6 @@ async function createFiles(files) {
 }
 
 async function createOneFile(file) {
-  createFile("./uploads", file);
   const fileSaved = await saveFileDatabase(file);
   return formatFileProps(fileSaved);
 }

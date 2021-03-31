@@ -8,19 +8,20 @@ export default function useImages() {
   const inputFile = useRef(null);
 
   useEffect(() => {
-    setLoading(true);
-    
-    getImages((data) => {
-      setImages(data);
-      setLoading(false);
-      console.log(data);
-    });
+    getImages()
+      .then((data) => {
+        setImages(data);
+      })
+      .catch(() => setError(true))
+      .finally(() => setLoading(false));
   }, []);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const files = inputFile.current.files;
-    createImages(files);
+    const res = await createImages(e.target);
+    const data = res instanceof Array ? res : [res];
+    setImages((imgs) => [...imgs, ...data]);
+    inputFile.current.value = null;
   };
 
   return {
