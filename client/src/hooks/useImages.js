@@ -3,8 +3,12 @@ import { getImages, createImages } from "../helpers/api";
 
 export default function useImages() {
   const [images, setImages] = useState([]);
-  const [isLoading, setLoading] = useState(true);
-  const [error, setError] = useState(false);
+  const [isDownloadingImages, setDownloadingImages] = useState(true);
+  const [isUploadingImages, setUploadingImages] = useState(false);
+  const [isErrorDownloadingImages, setIsErrorDownloadingImages] = useState(
+    false
+  );
+  const [isErrorSendingImages, setIsErrorSendingImages] = useState(false);
   const inputFile = useRef(null);
 
   useEffect(() => {
@@ -12,22 +16,32 @@ export default function useImages() {
       .then((data) => {
         setImages(data);
       })
-      .catch(() => setError(true))
-      .finally(() => setLoading(false));
+      .catch(() => setIsErrorDownloadingImages(true))
+      .finally(() => setDownloadingImages(false));
   }, []);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const res = await createImages(inputFile.current.files);
-    setImages((imgs) => [...imgs, ...res]);
-    inputFile.current.value = null;
+    setIsErrorSendingImages(false);
+    setUploadingImages(true);
+    try {
+      const res = await createImages(inputFile.current.files);
+      setImages((imgs) => [...imgs, ...res]);
+    } catch {
+      setIsErrorSendingImages(true);
+    } finally {
+      setUploadingImages(false);
+    }
+    if (inputFile.current) inputFile.current.value = null;
   };
 
   return {
     images,
     setImages,
-    isLoading,
-    error,
+    isDownloadingImages,
+    isUploadingImages,
+    isErrorDownloadingImages,
+    isErrorSendingImages,
     inputFile,
     handleSubmit,
   };

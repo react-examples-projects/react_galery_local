@@ -50,22 +50,25 @@ export default function ImageItem({ url, title, id, filename, setImages }) {
     <div className="col-lg-4 col-md-4 col-sm-6 mb-5 col-image">
       <figure className="w-100">
         <img src={url} alt="" className="img-fluid w-100 rounded-1 img-post" />
-        <div className="d-flex align-items-center justify-content-between mt-2">
-          {isEditing ? (
-            <form onSubmit={handleSubmit}>
-              <input
-                type="text"
-                value={titleImage}
-                disabled={isLoadingEditing}
-                onChange={(e) => setTitleImage(e.target.value)}
-                className="form-control form-control-sm"
-                required
-              />
-            </form>
-          ) : (
-            <figcaption>{title}</figcaption>
-          )}
-          <div className="icons">
+        <div className="row mt-2">
+          <div className="col-9 d-flex align-items-center">
+            {isEditing ? (
+              <form onSubmit={handleSubmit} className="w-100">
+                <input
+                  type="text"
+                  value={titleImage}
+                  disabled={isLoadingEditing}
+                  onChange={(e) => setTitleImage(e.target.value)}
+                  className="form-control form-control-sm"
+                  required
+                />
+              </form>
+            ) : (
+              <figcaption>{title}</figcaption>
+            )}
+          </div>
+
+          <div className="col-3 icons p-0">
             {isLoadingEditing ? (
               <Loader
                 color="#000"
