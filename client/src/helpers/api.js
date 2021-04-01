@@ -12,7 +12,7 @@ export const xhr = async (url, body = null, method = "GET") => {
     body,
   });
   const res = await xhr.json();
-  return res;
+  return res.data || res;
 };
 
 export const getImages = async () => {

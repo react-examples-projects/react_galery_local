@@ -5,7 +5,6 @@ const fileUpload = require("express-fileupload");
 const morgan = require("morgan");
 const cors = require("cors");
 const app = express();
-const fs = require("fs");
 const { PORT } = require("./config/config");
 const {
   saveFilesDatabase,
@@ -13,6 +12,7 @@ const {
   deleteImageDatabase,
   editTitleImage,
 } = require("./controllers/images");
+const { success, error } = require("./helpers/responses");
 
 // middlewares
 app.use(bodyParser.json());
@@ -24,36 +24,55 @@ app.use(express.static(__dirname + "/uploads"));
 
 // routes
 app.get("/", (req, res) => {
-  res.json({
-    data: "Index route empty",
-  });
+  res.json(success("Index route is empty"));
 });
 
 app.post("/post", async (req, res) => {
   const files = req.body["files[]"];
-  const saved = await saveFilesDatabase(files);
-  res.json(saved);
+  try {
+    const saved = await saveFilesDatabase(files);
+    res.status(201);
+    res.json(success(saved, 201));
+  } catch (err) {
+    console.log(err);
+    res.status(500).json(error("An error ocurred while creating the posts"));
+  }
 });
 
 app.get("/posts", async (req, res) => {
-  const images = await getImagesDatabase();
-  res.json(images);
+  try {
+    const images = await getImagesDatabase();
+    res.json(success(images));
+  } catch (err) {
+    console.log(err);
+    res.status(500).json(error("An error ocurred while querying the posts"));
+  }
 });
 
 app.delete("/post/:id", async (req, res) => {
-  const id = req.params.id;
-  const filename = req.body.filename;
-  const data = await deleteImageDatabase(id);
-  fs.unlink(`./uploads/${filename}`, () => {
-    res.json({ filename, id });
-  });
+  try {
+    const id = req.params.id;
+    const data = await deleteImageDatabase(id);
+    res.json(success({ id, ...data }));
+  } catch (err) {
+    console.log(err);
+    res
+      .status(500)
+      .json(error(`An error ocurred while deleting the ${id} post`));
+  }
 });
 
 app.put("/post/:id", async (req, res) => {
-  const id = req.params.id;
-  const { filename, title } = req.body;
-  const data = await editTitleImage(id, title);
-  res.json({ filename, id, title });
+  try {
+    const id = req.params.id;
+    const { title } = req.body;
+    const data = await editTitleImage(id, title);
+    res.json(success({ id, ...data }));
+  } catch (err) {
+    res
+      .status(500)
+      .json(error(`An error ocurred while editing the ${id} post`));
+  }
 });
 
 app.listen(PORT, () => {
