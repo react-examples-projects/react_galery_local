@@ -38,9 +38,12 @@ function App() {
             />
           </div>
           {isErrorSendingImages && (
-            <span className="text-danger fw-bolder mb-2 d-block">
-              Ocurrió un error al subir las imagenes
-            </span>
+            <small className="text-danger fw-bolder mb-2 d-flex align-items-center">
+              <BiError />
+              <span className="mx-2">
+                Ocurrió un error al subir las imágenes, verifica tu conexión
+              </span>
+            </small>
           )}
           <button
             type="submit"
@@ -67,13 +70,6 @@ function App() {
         />
       </header>
 
-      {isErrorDownloadingImages && (
-        <h4 className="text-danger mt-5 d-flex align-items-center">
-          <BiError />
-          <span className="mx-2">Ocurrió un error, verifica tu conexión</span>
-        </h4>
-      )}
-
       {isDownloadingImages ? (
         <Loader
           type="Oval"
@@ -83,7 +79,7 @@ function App() {
           className="loader-app"
         />
       ) : (
-        <ImageList {...{ images, setImages }} />
+        <ImageList {...{ images, setImages, isErrorDownloadingImages }} />
       )}
     </div>
   );

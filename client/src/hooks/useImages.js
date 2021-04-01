@@ -12,12 +12,19 @@ export default function useImages() {
   const inputFile = useRef(null);
 
   useEffect(() => {
-    getImages()
-      .then((data) => {
-        setImages(data);
-      })
-      .catch(() => setIsErrorDownloadingImages(true))
-      .finally(() => setDownloadingImages(false));
+    async function _getImages() {
+      try {
+        const data = await getImages();
+        console.log(data)
+        if (!data.ok) return setIsErrorDownloadingImages(true);
+        setImages(data.data);
+      } catch {
+        setIsErrorDownloadingImages(true);
+      } finally {
+        setDownloadingImages(false);
+      }
+    }
+    _getImages();
   }, []);
 
   const handleSubmit = async (e) => {
@@ -26,7 +33,9 @@ export default function useImages() {
     setUploadingImages(true);
     try {
       const res = await createImages(inputFile.current.files);
-      setImages((imgs) => [...imgs, ...res]);
+      if (!res.ok) return setIsErrorSendingImages(true);
+
+      setImages((imgs) => [...imgs, ...res.data]);
     } catch {
       setIsErrorSendingImages(true);
     } finally {

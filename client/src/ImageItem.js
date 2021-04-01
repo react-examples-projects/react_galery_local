@@ -32,7 +32,7 @@ export default function ImageItem({ url, title, id, filename, setImages }) {
     const data = await deleteImage(id, filename);
     setLoadingDelete(false);
     setImages((imgs) => {
-      const filterImgs = imgs.filter((img) => img.id !== data.id);
+      const filterImgs = imgs.filter((img) => img.id !== data.data.id);
       return filterImgs;
     });
   };
