@@ -1,13 +1,19 @@
 import { useState, useEffect } from "react";
-import { BiTrash, BiEditAlt } from "react-icons/bi";
+import { BiTrash, BiEditAlt, BiError } from "react-icons/bi";
 import { deleteImage, editTitleImage } from "./helpers/api";
 import Loader from "react-loader-spinner";
 
 export default function ImageItem({ url, title, id, filename, setImages }) {
   const [isEditing, setEditing] = useState(false);
   const [titleImage, setTitleImage] = useState(title);
+
+  // loader's status
   const [isLoadingEditing, setLoadingEditing] = useState(false);
   const [isLoadingDelete, setLoadingDelete] = useState(false);
+
+  // error's status
+  const [isErrorDeleting, setErrorDeleting] = useState(false);
+  const [isErrorEditing, setErrorEditing] = useState(false);
 
   const toggleEditing = () => setEditing((e) => !e);
 
@@ -15,26 +21,39 @@ export default function ImageItem({ url, title, id, filename, setImages }) {
     e.preventDefault();
     toggleEditing();
     setLoadingEditing(true);
-    const data = await editTitleImage({ id, filename, title: titleImage });
-    setLoadingEditing(false);
-
-    setImages((imgs) => {
-      const copy = [...imgs];
-      const filtered = copy.find((img) => img.id === id);
-      console.log(filtered);
-      filtered.title = titleImage;
-      return copy;
-    });
+    setErrorEditing(false);
+    try {
+      await editTitleImage({ id, filename, title: titleImage });
+      setImages((imgs) => {
+        const copy = [...imgs];
+        const filtered = copy.find((img) => img.id === id);
+        filtered.title = titleImage;
+        return copy;
+      });
+    } catch {
+      setErrorDeleting(false);
+      setErrorEditing(true);
+    } finally {
+      setLoadingEditing(false);
+    }
   };
 
   const deleteItem = async (id) => {
     setLoadingDelete(true);
-    const data = await deleteImage(id, filename);
-    setLoadingDelete(false);
-    setImages((imgs) => {
-      const filterImgs = imgs.filter((img) => img.id !== data.data.id);
-      return filterImgs;
-    });
+    setErrorDeleting(false);
+    try {
+      const data = await deleteImage(id, filename);
+      setLoadingDelete(false);
+      setImages((imgs) => {
+        const filterImgs = imgs.filter((img) => img.id !== data.data.id);
+        return filterImgs;
+      });
+    } catch {
+      setErrorEditing(false);
+      setErrorDeleting(true);
+    } finally {
+      setLoadingDelete(false);
+    }
   };
 
   useEffect(() => {
@@ -98,6 +117,19 @@ export default function ImageItem({ url, title, id, filename, setImages }) {
             )}
           </div>
         </div>
+        {isErrorDeleting && (
+          <small className="text-danger d-block">
+            <BiError className="me-1" />
+            Error al eliminar
+          </small>
+        )}
+
+        {isErrorEditing && (
+          <small className="text-danger d-block">
+            <BiError className="me-1" />
+            Error al editar
+          </small>
+        )}
       </figure>
     </div>
   );

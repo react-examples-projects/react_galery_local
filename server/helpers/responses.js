@@ -16,4 +16,8 @@ function success(data, status = 200) {
   };
 }
 
-module.exports = { error, success };
+function sendError(res, err){
+  res.status(500).json(error(err));
+}
+
+module.exports = { error, success, sendError };

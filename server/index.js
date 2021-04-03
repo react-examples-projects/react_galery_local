@@ -12,7 +12,7 @@ const {
   deleteImageDatabase,
   editTitleImage,
 } = require("./controllers/images");
-const { success, error } = require("./helpers/responses");
+const { success, error, sendError } = require("./helpers/responses");
 
 // middlewares
 app.use(bodyParser.json());
@@ -35,7 +35,7 @@ app.post("/post", async (req, res) => {
     res.json(success(saved, 201));
   } catch (err) {
     console.log(err);
-    res.status(500).json(error("An error ocurred while creating the posts"));
+    sendError(res, "An error ocurred while creating the posts");
   }
 });
 
@@ -45,7 +45,7 @@ app.get("/posts", async (req, res) => {
     res.json(success(images));
   } catch (err) {
     console.log(err);
-    res.status(500).json(error("An error ocurred while querying the posts"));
+    sendError(res, "An error ocurred while querying the posts");
   }
 });
 
@@ -56,9 +56,7 @@ app.delete("/post/:id", async (req, res) => {
     res.json(success({ id, ...data }));
   } catch (err) {
     console.log(err);
-    res
-      .status(500)
-      .json(error(`An error ocurred while deleting the ${id} post`));
+    sendError(res, `An error ocurred while deleting the ${id} post`);
   }
 });
 
@@ -69,9 +67,8 @@ app.put("/post/:id", async (req, res) => {
     const data = await editTitleImage(id, title);
     res.json(success({ id, ...data }));
   } catch (err) {
-    res
-      .status(500)
-      .json(error(`An error ocurred while editing the ${id} post`));
+    console.log(err);
+    sendError(res, `An error ocurred while editing the ${id} post`);
   }
 });
 
