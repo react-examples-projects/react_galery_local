@@ -5,8 +5,8 @@ export default function Routers() {
   return (
     <Router>
       <Switch>
-        {routers.map((route) => (
-          <Route {...route} />
+        {routers.map((route, i) => (
+          <Route {...route} key={i} />
         ))}
       </Switch>
     </Router>

@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { BiTrash, BiEditAlt, BiError } from "react-icons/bi";
 import { deleteImage, editTitleImage } from "../../helpers/api";
 import Loader from "react-loader-spinner";
+import { Link } from "react-router-dom";
 
 export default function ImageItem({ url, title, id, filename, setImages }) {
   const [isEditing, setEditing] = useState(false);
@@ -130,6 +131,11 @@ export default function ImageItem({ url, title, id, filename, setImages }) {
             Error al editar
           </small>
         )}
+        <div className="image-overlay">
+          <Link to={`/image/${id}`} className="btn btn-success">
+            Ver más
+          </Link>
+        </div>
       </figure>
     </div>
   );

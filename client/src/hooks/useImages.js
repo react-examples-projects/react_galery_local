@@ -1,5 +1,10 @@
 import { useState, useEffect, useRef } from "react";
 import { getImages, createImages } from "../helpers/api";
+import {
+  saveImagesInStorage,
+  getImagesFromStorage,
+  existsImagesInStorage,
+} from "../helpers/storage";
 
 export default function useImages() {
   const [images, setImages] = useState([]);
@@ -15,14 +20,18 @@ export default function useImages() {
     async function _getImages() {
       try {
         const data = await getImages();
-        console.log(data)
         if (!data.ok) return setIsErrorDownloadingImages(true);
         setImages(data.data);
+        saveImagesInStorage(data.data);
       } catch {
         setIsErrorDownloadingImages(true);
       } finally {
         setDownloadingImages(false);
       }
+    }
+    if (existsImagesInStorage()) {
+      setDownloadingImages(false);
+      return setImages(getImagesFromStorage());
     }
     _getImages();
   }, []);
