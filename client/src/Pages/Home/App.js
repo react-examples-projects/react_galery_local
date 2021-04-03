@@ -1,8 +1,8 @@
-import useImages from "./hooks/useImages";
+import useImages from "../../hooks/useImages";
 import ImageList from "./ImageList";
 import "react-loader-spinner/dist/loader/css/react-spinner-loader.css";
 import Loader from "react-loader-spinner";
-import headerImg from "./images/header.png";
+import headerImg from "../../images/header.png";
 import { BiError } from "react-icons/bi";
 
 function App() {

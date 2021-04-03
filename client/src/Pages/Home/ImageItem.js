@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { BiTrash, BiEditAlt, BiError } from "react-icons/bi";
-import { deleteImage, editTitleImage } from "./helpers/api";
+import { deleteImage, editTitleImage } from "../../helpers/api";
 import Loader from "react-loader-spinner";
 
 export default function ImageItem({ url, title, id, filename, setImages }) {
