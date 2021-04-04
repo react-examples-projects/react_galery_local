@@ -34,9 +34,15 @@ async function editTitleImage(id, title) {
   return data;
 }
 
+async function getPostById(id) {
+  const data = await ImageModel.findById(id);
+  return data.toObject();
+}
+
 module.exports = {
   saveFilesDatabase,
   getImagesDatabase,
   deleteImageDatabase,
   editTitleImage,
+  getPostById,
 };

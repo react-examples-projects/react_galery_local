@@ -11,6 +11,7 @@ const {
   getImagesDatabase,
   deleteImageDatabase,
   editTitleImage,
+  getPostById,
 } = require("./controllers/images");
 const { success, error, sendError } = require("./helpers/responses");
 
@@ -50,8 +51,8 @@ app.get("/posts", async (req, res) => {
 });
 
 app.delete("/post/:id", async (req, res) => {
+  const id = req.params.id;
   try {
-    const id = req.params.id;
     const data = await deleteImageDatabase(id);
     res.json(success({ id, ...data }));
   } catch (err) {
@@ -61,14 +62,25 @@ app.delete("/post/:id", async (req, res) => {
 });
 
 app.put("/post/:id", async (req, res) => {
+  const id = req.params.id;
   try {
-    const id = req.params.id;
     const { title } = req.body;
     const data = await editTitleImage(id, title);
     res.json(success({ id, ...data }));
   } catch (err) {
     console.log(err);
     sendError(res, `An error ocurred while editing the ${id} post`);
+  }
+});
+
+app.get("/post/:id", async (req, res) => {
+  const id = req.params.id;
+  try {
+    const data = await getPostById(id);
+    res.json(success(data));
+  } catch (err) {
+    console.log(err);
+    sendError(res, `An error ocurred while finding the ${id} post`);
   }
 });
 

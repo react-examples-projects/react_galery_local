@@ -4,6 +4,7 @@ import {
   saveImagesInStorage,
   getImagesFromStorage,
   existsImagesInStorage,
+  removeImagesFromStorage,
 } from "../helpers/storage";
 
 export default function useImages() {
@@ -23,7 +24,8 @@ export default function useImages() {
         if (!data.ok) return setIsErrorDownloadingImages(true);
         setImages(data.data);
         saveImagesInStorage(data.data);
-      } catch {
+      } catch(err) {
+        console.log(err);
         setIsErrorDownloadingImages(true);
       } finally {
         setDownloadingImages(false);
@@ -44,8 +46,12 @@ export default function useImages() {
       const res = await createImages(inputFile.current.files);
       if (!res.ok) return setIsErrorSendingImages(true);
 
-      setImages((imgs) => [...imgs, ...res.data]);
-    } catch {
+      setImages((imgs) => {
+        removeImagesFromStorage();
+        return [...imgs, ...res.data];
+      });
+    } catch (err) {
+      console.log(err);
       setIsErrorSendingImages(true);
     } finally {
       setUploadingImages(false);

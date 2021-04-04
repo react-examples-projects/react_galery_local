@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { BiTrash, BiEditAlt, BiError } from "react-icons/bi";
 import { deleteImage, editTitleImage } from "../../helpers/api";
+import { removeImagesFromStorage } from "../../helpers/storage";
 import Loader from "react-loader-spinner";
 import { Link } from "react-router-dom";
 
@@ -29,6 +30,7 @@ export default function ImageItem({ url, title, id, filename, setImages }) {
         const copy = [...imgs];
         const filtered = copy.find((img) => img.id === id);
         filtered.title = titleImage;
+        removeImagesFromStorage();
         return copy;
       });
     } catch {
@@ -47,6 +49,7 @@ export default function ImageItem({ url, title, id, filename, setImages }) {
       setLoadingDelete(false);
       setImages((imgs) => {
         const filterImgs = imgs.filter((img) => img.id !== data.data.id);
+        removeImagesFromStorage();
         return filterImgs;
       });
     } catch {

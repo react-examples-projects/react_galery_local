@@ -1,6 +1,7 @@
 import {
   CREATE_POSTS,
   GET_POSTS,
+  GET_POST,
   DELETE_POST,
   EDIT_POST,
 } from "../config/config";
@@ -17,6 +18,11 @@ export const xhr = async (url, body = null, method = "GET") => {
 
 export const getImages = async () => {
   const data = await xhr(GET_POSTS);
+  return data;
+};
+
+export const getPost = async (id) => {
+  const data = await xhr(GET_POST(id));
   return data;
 };
 

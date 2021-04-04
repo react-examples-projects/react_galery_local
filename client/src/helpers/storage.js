@@ -1,9 +1,14 @@
+import NodeCache from "node-cache";
+
+const storage = new NodeCache();
+
 export function saveImagesInStorage(images) {
-  sessionStorage.setItem("images", JSON.stringify(images));
+  storage.set("images", JSON.stringify(images));
 }
 
 export function getImagesFromStorage() {
-  const json = sessionStorage.getItem("images");
+  const json = storage.get("images");
+  console.log(json)
   if (!json) return [];
   return JSON.parse(json);
 }
@@ -11,4 +16,8 @@ export function getImagesFromStorage() {
 export function existsImagesInStorage() {
   const images = getImagesFromStorage();
   return images.length > 0;
+}
+
+export function removeImagesFromStorage() {
+  storage.del("images");
 }
