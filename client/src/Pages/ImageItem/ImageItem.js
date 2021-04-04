@@ -32,7 +32,8 @@ export default function ImageItem() {
         color="#000000b2"
         height={80}
         width={80}
-        className="ms-2"
+        className="d-flex justify-content-center"
+        style={{ marginTop: "22rem" }}
       />
     );
   }
@@ -49,9 +50,32 @@ export default function ImageItem() {
         className="img-flud w-100 rounded"
         alt={"Post upload at " + date}
       />
-      <code>
-        <pre>{JSON.stringify(postImage, null, 4)}</pre>
-      </code>
+      <h5 className="my-3">Let your comments</h5>
+      <hr />
+      <form>
+        <div className="mb-2">
+          <input
+            type="text"
+            name="name"
+            placeholder="put your username"
+            className="form-control form-control-sm"
+            required
+          />
+        </div>
+        <div className="mb-2">
+          <textarea
+            name="comment"
+            cols="10"
+            rows="4"
+            placeholder="write your comment"
+            className="form-control form-control-sm"
+            required
+          />
+        </div>
+        <button type="submit" className="btn btn-success btn-sm">
+          Send comment
+        </button>
+      </form>
     </div>
   );
 }
