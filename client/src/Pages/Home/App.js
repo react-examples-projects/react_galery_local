@@ -3,7 +3,7 @@ import ImageList from "./ImageList";
 import "react-loader-spinner/dist/loader/css/react-spinner-loader.css";
 import Loader from "react-loader-spinner";
 import headerImg from "../../images/header.png";
-import { BiError } from "react-icons/bi";
+import TextError from "../../components/TextError";
 
 function App() {
   const {
@@ -37,13 +37,9 @@ function App() {
               required
             />
           </div>
+
           {isErrorSendingImages && (
-            <small className="text-danger fw-bolder mb-2 d-flex align-items-center">
-              <BiError />
-              <span className="mx-2">
-                Ocurrió un error al subir las imágenes, verifica tu conexión
-              </span>
-            </small>
+            <TextError text=" Ocurrió un error al subir las imágenes, verifica tu conexión" />
           )}
           <button
             type="submit"

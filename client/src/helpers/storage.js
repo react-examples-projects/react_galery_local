@@ -8,7 +8,6 @@ export function saveImagesInStorage(images) {
 
 export function getImagesFromStorage() {
   const json = storage.get("images");
-  console.log(json)
   if (!json) return [];
   return JSON.parse(json);
 }

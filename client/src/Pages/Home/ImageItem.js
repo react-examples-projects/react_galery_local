@@ -4,6 +4,7 @@ import { deleteImage, editTitleImage } from "../../helpers/api";
 import { removeImagesFromStorage } from "../../helpers/storage";
 import Loader from "react-loader-spinner";
 import { Link } from "react-router-dom";
+import TextError from "../../components/TextError";
 
 export default function ImageItem({ url, title, id, filename, setImages }) {
   const [isEditing, setEditing] = useState(false);
@@ -25,7 +26,9 @@ export default function ImageItem({ url, title, id, filename, setImages }) {
     setLoadingEditing(true);
     setErrorEditing(false);
     try {
-      await editTitleImage({ id, filename, title: titleImage });
+      const data = await editTitleImage({ id, filename, title: titleImage });
+      console.log(data.ok)
+      if (!data.ok) return setErrorEditing(true);
       setImages((imgs) => {
         const copy = [...imgs];
         const filtered = copy.find((img) => img.id === id);
@@ -47,6 +50,7 @@ export default function ImageItem({ url, title, id, filename, setImages }) {
     try {
       const data = await deleteImage(id, filename);
       setLoadingDelete(false);
+      if (!data.ok) return setErrorDeleting(true);
       setImages((imgs) => {
         const filterImgs = imgs.filter((img) => img.id !== data.data.id);
         removeImagesFromStorage();
@@ -121,19 +125,10 @@ export default function ImageItem({ url, title, id, filename, setImages }) {
             )}
           </div>
         </div>
-        {isErrorDeleting && (
-          <small className="text-danger d-block">
-            <BiError className="me-1" />
-            Error al eliminar
-          </small>
-        )}
 
-        {isErrorEditing && (
-          <small className="text-danger d-block">
-            <BiError className="me-1" />
-            Error al editar
-          </small>
-        )}
+        {isErrorDeleting && <TextError text="Error al eliminar" />}
+        {isErrorEditing && <TextError text="Error al editar" />}
+
         <div className="image-overlay">
           <Link to={`/image/${id}`} className="btn btn-success">
             Ver más
