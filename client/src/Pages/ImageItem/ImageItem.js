@@ -1,36 +1,19 @@
-import { useEffect, useState, useRef } from "react";
-import { useParams } from "react-router-dom";
-import { getPost } from "../../helpers/api";
+import { useEffect, useState } from "react";
+import useImagesItem from "../../hooks/useImageItem";
 import Loader from "react-loader-spinner";
 import css from "./ImageItem.module.css";
 import SunEditor from "suneditor-react";
 
 export default function ImageItem() {
-  const { id } = useParams();
-  const [postImage, setPostImage] = useState({});
-  const [isLoading, setLoading] = useState(true);
-  const [isError, setError] = useState(false);
-  const refEditor = useRef();
+  const {
+    postImage,
+    isLoading,
+    isError,
+    handleSubmit,
+    refEditor,
+  } = useImagesItem();
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    console.log(refEditor.current.editor.getContents());
-  };
-
-  useEffect(() => {
-    async function getPostImage() {
-      try {
-        const data = await getPost(id);
-        setPostImage(data);
-      } catch {
-        setError(true);
-      } finally {
-        setLoading(false);
-      }
-    }
-
-    getPostImage();
-  }, [id]);
+  const [comment, setComment] = useState({});
 
   if (isLoading) {
     return (
@@ -67,14 +50,20 @@ export default function ImageItem() {
         <div className="mb-2">
           <input
             type="text"
-            name="name"
+            name="username"
             placeholder="put your username"
             className="form-control form-control-sm"
             required
           />
         </div>
         <div className="mb-2">
-          <SunEditor ref={refEditor} lang="es" autoFocus />
+          <SunEditor
+            ref={refEditor}
+            height={200}
+            name="content"
+            lang="es"
+            autoFocus
+          />
         </div>
         <button type="submit" className="btn btn-success btn-sm">
           Send comment
