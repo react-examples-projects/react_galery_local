@@ -8,6 +8,7 @@ const app = express();
 const { PORT } = require("./config/config");
 const { success } = require("./helpers/responses");
 const imagesRouters = require("./routers/images");
+const commentsRouters = require("./routers/comments");
 
 // middlewares
 app.use(bodyParser.json());
@@ -19,7 +20,7 @@ app.use(express.static(__dirname + "/uploads"));
 
 // routes
 app.use("/api/posts", imagesRouters);
-
+app.use("/api/comments", commentsRouters);
 app.get("/", (req, res) => {
   res.json(success("Index route is empty"));
 });
