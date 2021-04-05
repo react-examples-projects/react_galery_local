@@ -1,9 +1,15 @@
 import {
+  // images endpoints
   CREATE_POSTS,
   GET_POSTS,
   GET_POST,
   DELETE_POST,
   EDIT_POST,
+  // comments endpoints
+  GET_COMMENTS,
+  CREATE_COMMENT,
+  DELETE_COMMENT,
+  EDIT_COMMENT,
 } from "../config/config";
 import { toArrayUrlFiles } from "./file";
 
@@ -47,4 +53,9 @@ export const editTitleImage = async ({ id, filename, title }) => {
   data.append("title", title);
   const res = await xhr(EDIT_POST(id), data, "PUT");
   return res;
+};
+
+export const getCommentsByPost = async (id) => {
+  const data = await xhr(GET_COMMENTS(id));
+  return data;
 };

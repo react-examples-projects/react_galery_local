@@ -1,8 +1,8 @@
-import { useEffect, useState } from "react";
 import useImagesItem from "../../hooks/useImageItem";
 import Loader from "react-loader-spinner";
 import css from "./ImageItem.module.css";
 import SunEditor from "suneditor-react";
+import ImageItemComments from "./ImageItemComments";
 
 export default function ImageItem() {
   const {
@@ -12,8 +12,6 @@ export default function ImageItem() {
     handleSubmit,
     refEditor,
   } = useImagesItem();
-
-  const [comment, setComment] = useState({});
 
   if (isLoading) {
     return (
@@ -69,6 +67,7 @@ export default function ImageItem() {
           Send comment
         </button>
       </form>
+      <ImageItemComments />
     </div>
   );
 }

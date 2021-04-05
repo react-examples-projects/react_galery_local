@@ -38,7 +38,7 @@ router.delete("/:id", async (req, res) => {
     res.json(success({ id, ...data }));
   } catch (err) {
     console.log(err);
-    sendError(res, `An error ocurred while deleting the ${id} comment`);
+    sendError(res, `An error ocurred while deleting the comment`);
   }
 });
 
@@ -50,7 +50,7 @@ router.put("/:id", async (req, res) => {
     res.json(success({ id, ...data }));
   } catch (err) {
     console.log(err);
-    sendError(res, `An error ocurred while editing the ${id} comment`);
+    sendError(res, `An error ocurred while editing the comment`);
   }
 });
 

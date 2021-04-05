@@ -32,36 +32,36 @@ router.get("/", async (req, res) => {
 });
 
 router.delete("/:id", async (req, res) => {
-  const id = req.params.id;
   try {
+    const id = req.params.id;
     const data = await deleteImageDatabase(id);
     res.json(success({ id, ...data }));
   } catch (err) {
     console.log(err);
-    sendError(res, `An error ocurred while deleting the ${id} post`);
+    sendError(res, `An error ocurred while deleting the post`);
   }
 });
 
 router.put("/:id", async (req, res) => {
-  const id = req.params.id;
   try {
+    const id = req.params.id;
     const { title } = req.body;
     const data = await editTitleImage(id, title);
     res.json(success({ id, ...data }));
   } catch (err) {
     console.log(err);
-    sendError(res, `An error ocurred while editing the ${id} post`);
+    sendError(res, `An error ocurred while editing the post`);
   }
 });
 
 router.get("/:id", async (req, res) => {
-  const id = req.params.id;
   try {
+    const id = req.params.id;
     const data = await getPostById(id);
     res.json(success(data));
   } catch (err) {
     console.log(err);
-    sendError(res, `An error ocurred while finding the ${id} post`);
+    sendError(res, `An error ocurred while finding the post`);
   }
 });
 
