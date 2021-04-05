@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { BiTrash, BiEditAlt, BiError } from "react-icons/bi";
+import { BiTrash, BiEditAlt } from "react-icons/bi";
 import { deleteImage, editTitleImage } from "../../helpers/api";
 import { removeImagesFromStorage } from "../../helpers/storage";
 import Loader from "react-loader-spinner";

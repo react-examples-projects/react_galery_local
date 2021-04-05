@@ -44,11 +44,15 @@ export default function ImageItem() {
       />
     );
   }
+
+  if (isError) {
+    return <h4>Ocurrió un error al consultar el post</h4>;
+  }
   const { title, url, date } = postImage.data;
 
   return (
     <div className={`container mt-5 ${css.container}`}>
-      <h2 className="mb-3">{title}</h2>
+      <h2 className="mb-3 text-capitalize">{title}</h2>
       <time dateTime={date} className="d-block text-muted mb-2 fw-normal">
         Published at <small>{date}</small>
       </time>
@@ -59,9 +63,8 @@ export default function ImageItem() {
       />
       <h5 className="my-3">Let your comments</h5>
       <hr />
-      <form onSubmit={handleSubmit} autoComplete="off">
+      <form onSubmit={handleSubmit} className="mb-5" autoComplete="off">
         <div className="mb-2">
-          <SunEditor ref={refEditor} lang="es" autoFocus />
           <input
             type="text"
             name="name"
@@ -71,14 +74,7 @@ export default function ImageItem() {
           />
         </div>
         <div className="mb-2">
-          <textarea
-            name="comment"
-            cols="10"
-            rows="4"
-            placeholder="write your comment"
-            className="form-control form-control-sm"
-            required
-          />
+          <SunEditor ref={refEditor} lang="es" autoFocus />
         </div>
         <button type="submit" className="btn btn-success btn-sm">
           Send comment
