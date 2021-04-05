@@ -49,7 +49,7 @@ export default function ImageItem() {
           <input
             type="text"
             name="username"
-            placeholder="put your username"
+            placeholder="Write your username"
             className="form-control form-control-sm"
             required
           />

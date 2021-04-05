@@ -1,19 +1,7 @@
-import { useState, useEffect } from "react";
-import { getCommentsByPost } from "../../helpers/api";
-import { useParams } from "react-router-dom";
+import useComments from "../../hooks/useComments";
 
 export default function ImageItemComments() {
-  const { id } = useParams();
-  const [comments, setComments] = useState([]);
-
-  useEffect(() => {
-    async function getComments() {
-      const comments = await getCommentsByPost(id);
-      setComments(comments.data);
-    }
-    getComments();
-  }, []);
-
+  const { comments } = useComments();
   return (
     <div className="mb-5">
       {comments.map((comment) => {
@@ -21,6 +9,7 @@ export default function ImageItemComments() {
           <div key={comment._id} className="p-3 mb-4 border rounded shadow-sm">
             <p className="text-capitalize fw-bolder mb-2">{comment.username}</p>
             <div
+              style={{ fontSize: "14px" }}
               dangerouslySetInnerHTML={{
                 __html: comment.content,
               }}

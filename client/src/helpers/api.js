@@ -59,3 +59,8 @@ export const getCommentsByPost = async (id) => {
   const data = await xhr(GET_COMMENTS(id));
   return data;
 };
+
+export const createComment = async (payload) => {
+  const data = await xhr(CREATE_COMMENT, payload, "POST");
+  return data;
+};

@@ -1,6 +1,6 @@
 import { useEffect, useState, useRef } from "react";
 import { useParams } from "react-router-dom";
-import { getPost } from "../helpers/api";
+import { getPost, createComment } from "../helpers/api";
 
 export default function useImagesItem() {
   const { id } = useParams();
@@ -9,11 +9,12 @@ export default function useImagesItem() {
   const [isError, setError] = useState(false);
   const refEditor = useRef();
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     const fd = new FormData(e.target);
-    fd.append("dage", new Date().toLocaleString());
+    fd.append("date", new Date().toLocaleString());
     fd.append("id_post", id);
+    const data = await createComment(fd);
     console.log(refEditor.current.editor.getContents());
   };
 
