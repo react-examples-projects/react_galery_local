@@ -1,14 +1,21 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import { useParams } from "react-router-dom";
 import { getPost } from "../../helpers/api";
 import Loader from "react-loader-spinner";
 import css from "./ImageItem.module.css";
+import SunEditor from "suneditor-react";
 
 export default function ImageItem() {
   const { id } = useParams();
   const [postImage, setPostImage] = useState({});
   const [isLoading, setLoading] = useState(true);
   const [isError, setError] = useState(false);
+  const refEditor = useRef();
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    console.log(refEditor.current.editor.getContents());
+  };
 
   useEffect(() => {
     async function getPostImage() {
@@ -52,8 +59,9 @@ export default function ImageItem() {
       />
       <h5 className="my-3">Let your comments</h5>
       <hr />
-      <form>
+      <form onSubmit={handleSubmit} autoComplete="off">
         <div className="mb-2">
+          <SunEditor ref={refEditor} lang="es" autoFocus />
           <input
             type="text"
             name="name"
