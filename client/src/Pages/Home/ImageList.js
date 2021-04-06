@@ -1,5 +1,6 @@
 import ImageItem from "./ImageItem";
 import { BiError } from "react-icons/bi";
+import ThereNotPosts from "../../images/empty.svg";
 
 export default function ImageList({
   images,
@@ -14,6 +15,24 @@ export default function ImageList({
       </h5>
     );
   }
+
+  if (!images.length) {
+    return (
+      <>
+        <img
+          src={ThereNotPosts}
+          alt="There not post yet"
+          className="d-block mx-auto"
+          style={{
+            width: "100%",
+            maxWidth: "220px",
+          }}
+        />
+        <h4 className="text-center mt-4">Aún no han publicado nada</h4>
+      </>
+    );
+  }
+
   return (
     <div className="row">
       {images.map(({ id, ...props }) => {
