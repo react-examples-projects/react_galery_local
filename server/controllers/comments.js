@@ -10,6 +10,11 @@ async function deleteComment(id) {
   return data;
 }
 
+async function deleteAllCommentsInPost(id_post) {
+  const data = await CommentModel.deleteMany({ id_post });
+  return data;
+}
+
 async function editComment(id, payload) {
   const data = await CommentModel.updateOne({ _id: id }, payload);
   return data;
@@ -26,4 +31,5 @@ module.exports = {
   deleteComment,
   editComment,
   createComment,
+  deleteAllCommentsInPost,
 };

@@ -13,6 +13,7 @@ const EDIT_POST = (id) => `${URL_IMAGES}/${id}`;
 const GET_COMMENTS = (id) => `${URL_COMMENTS}/${id}`;
 const CREATE_COMMENT = URL_COMMENTS + "/";
 const DELETE_COMMENT = (id) => `${URL_COMMENTS}/${id}`;
+const DELETE_ALL_COMMENTS = (id) => `${URL_COMMENTS}/all/${id}`;
 const EDIT_COMMENT = (id) => `${URL_COMMENTS}/${id}`;
 
 export {
@@ -29,5 +30,6 @@ export {
   GET_COMMENTS,
   CREATE_COMMENT,
   DELETE_COMMENT,
+  DELETE_ALL_COMMENTS,
   EDIT_COMMENT,
 };

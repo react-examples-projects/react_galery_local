@@ -1,77 +1,23 @@
-import { useState, useEffect } from "react";
 import { BiTrash, BiEditAlt } from "react-icons/bi";
-import { deleteImage, editTitleImage } from "../../helpers/api";
-import { removeImagesFromStorage } from "../../helpers/storage";
 import Loader from "react-loader-spinner";
 import { Link } from "react-router-dom";
 import TextError from "../../components/TextError";
+import useImageItemList from "../../hooks/useImageItemList";
 
-export default function ImageItem({ url, title, id, filename, setImages }) {
-  const [isEditing, setEditing] = useState(false);
-  const [titleImage, setTitleImage] = useState(title);
-
-  // loader's status
-  const [isLoadingEditing, setLoadingEditing] = useState(false);
-  const [isLoadingDelete, setLoadingDelete] = useState(false);
-
-  // error's status
-  const [isErrorDeleting, setErrorDeleting] = useState(false);
-  const [isErrorEditing, setErrorEditing] = useState(false);
-
-  const toggleEditing = () => setEditing((e) => !e);
-
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    toggleEditing();
-    setLoadingEditing(true);
-    setErrorEditing(false);
-    try {
-      const data = await editTitleImage({ id, filename, title: titleImage });
-      console.log(data.ok)
-      if (!data.ok) return setErrorEditing(true);
-      setImages((imgs) => {
-        const copy = [...imgs];
-        const filtered = copy.find((img) => img.id === id);
-        filtered.title = titleImage;
-        removeImagesFromStorage();
-        return copy;
-      });
-    } catch {
-      setErrorDeleting(false);
-      setErrorEditing(true);
-    } finally {
-      setLoadingEditing(false);
-    }
-  };
-
-  const deleteItem = async (id) => {
-    setLoadingDelete(true);
-    setErrorDeleting(false);
-    try {
-      const data = await deleteImage(id, filename);
-      setLoadingDelete(false);
-      if (!data.ok) return setErrorDeleting(true);
-      setImages((imgs) => {
-        const filterImgs = imgs.filter((img) => img.id !== data.data.id);
-        removeImagesFromStorage();
-        return filterImgs;
-      });
-    } catch {
-      setErrorEditing(false);
-      setErrorDeleting(true);
-    } finally {
-      setLoadingDelete(false);
-    }
-  };
-
-  useEffect(() => {
-    function toggleEsc(e) {
-      if (e.keyCode === 27) setEditing(false);
-    }
-
-    window.addEventListener("keydown", toggleEsc);
-    return () => window.removeEventListener("keydown", toggleEsc);
-  }, []);
+export default function ImageItem(props) {
+  const { url, title, id } = props;
+  const {
+    setTitleImage,
+    isEditing,
+    titleImage,
+    isLoadingDelete,
+    isLoadingEditing,
+    isErrorDeleting,
+    isErrorEditing,
+    handleSubmit,
+    deleteItem,
+    toggleEditing,
+  } = useImageItemList(props);
 
   return (
     <div className="col-lg-4 col-md-4 col-sm-6 mb-5 col-image">

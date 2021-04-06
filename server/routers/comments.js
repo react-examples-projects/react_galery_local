@@ -4,6 +4,7 @@ const { success, sendError } = require("../helpers/responses");
 const {
   getComments,
   deleteComment,
+  deleteAllCommentsInPost,
   editComment,
   createComment,
 } = require("../controllers/comments");
@@ -31,6 +32,7 @@ router.get("/:id", async (req, res) => {
   }
 });
 
+// delete only comment
 router.delete("/:id", async (req, res) => {
   try {
     const id = req.params.id;
@@ -39,6 +41,18 @@ router.delete("/:id", async (req, res) => {
   } catch (err) {
     console.log(err);
     sendError(res, `An error ocurred while deleting the comment`);
+  }
+});
+
+// delete all comments in only post
+router.delete("/all/:id", async (req, res) => {
+  try {
+    const id_post = req.params.id_post;
+    const data = await deleteAllCommentsInPost(id_post);
+    res.json(success(data));
+  } catch (err) {
+    console.log(err);
+    sendError(res, `An error ocurred while deleting the all comments`);
   }
 });
 

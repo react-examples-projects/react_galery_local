@@ -9,6 +9,7 @@ import {
   GET_COMMENTS,
   CREATE_COMMENT,
   DELETE_COMMENT,
+  DELETE_ALL_COMMENTS,
   EDIT_COMMENT,
 } from "../config/config";
 import { toArrayUrlFiles } from "./file";
@@ -62,5 +63,10 @@ export const getCommentsByPost = async (id) => {
 
 export const createComment = async (payload) => {
   const data = await xhr(CREATE_COMMENT, payload, "POST");
+  return data;
+};
+
+export const deleteAllCommentsInPost = async (id_post) => {
+  const data = await xhr(DELETE_ALL_COMMENTS(id_post), null, "DELETE");
   return data;
 };

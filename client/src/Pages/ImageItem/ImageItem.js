@@ -57,7 +57,7 @@ export default function ImageItem() {
         <div className="mb-2">
           <SunEditor
             ref={refEditor}
-            height={200}
+            height={120}
             name="content"
             lang="es"
             autoFocus

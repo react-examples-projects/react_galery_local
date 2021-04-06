@@ -1,7 +1,22 @@
 import useComments from "../../hooks/useComments";
+import Loader from "react-loader-spinner";
 
 export default function ImageItemComments() {
-  const { comments } = useComments();
+  const { comments, isLoading, isError } = useComments();
+
+  if (isLoading) {
+    return (
+      <Loader
+        type="Oval"
+        color="#000000b2"
+        height={40}
+        width={40}
+        className="d-flex justify-content-center"
+        style={{ marginTop: "2rem", marginBottom: "4rem" }}
+      />
+    );
+  }
+
   return (
     <div className="mb-5">
       {comments.map((comment) => {
