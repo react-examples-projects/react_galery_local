@@ -4,6 +4,7 @@ import "react-loader-spinner/dist/loader/css/react-spinner-loader.css";
 import Loader from "react-loader-spinner";
 import headerImg from "../../images/header.png";
 import TextError from "../../components/TextError";
+import BtnLoader from "../../components/BtnLoader";
 
 function App() {
   const {
@@ -41,23 +42,13 @@ function App() {
           {isErrorSendingImages && (
             <TextError text=" Ocurrió un error al subir las imágenes, verifica tu conexión" />
           )}
-          <button
+          
+          <BtnLoader
+            text="Enviar"
+            className="btn-sm px-5"
             type="submit"
-            className="btn btn-sm px-5 d-flex"
-            disabled={isUploadingImages}
-          >
-            {isUploadingImages ? (
-              <Loader
-                type="Oval"
-                color="#000000b2"
-                height={18}
-                width={18}
-                className="ms-2"
-              />
-            ) : (
-              "Enviar"
-            )}
-          </button>
+            isLoading={isUploadingImages}
+          />
         </form>
         <img
           src={headerImg}

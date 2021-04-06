@@ -1,5 +1,6 @@
 import useComments from "../../hooks/useComments";
 import Loader from "react-loader-spinner";
+import { BiError } from "react-icons/bi";
 
 export default function ImageItemComments() {
   const { comments, isLoading, isError } = useComments();
@@ -17,6 +18,24 @@ export default function ImageItemComments() {
     );
   }
 
+  if (isError) {
+    return (
+      <div className="alert alert-danger mb-5">
+        <h6 className="text-danger mb-0 text-center d-flex align-items-center justify-content-center">
+          <BiError />
+          <span className="ms-1">Ocurrió un error obtener los comentarios</span>
+        </h6>
+      </div>
+    );
+  }
+
+  if (!comments.length) {
+    return (
+      <h6 className="mb-5 p-3 border rounded text-center shadow-sm">
+        Nadie ha comentado aún, sé el primero en hacerlo
+      </h6>
+    );
+  }
   return (
     <div className="mb-5">
       {comments.map((comment) => {

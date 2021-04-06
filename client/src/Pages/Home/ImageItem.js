@@ -20,7 +20,7 @@ export default function ImageItem(props) {
   } = useImageItemList(props);
 
   return (
-    <div className="col-lg-4 col-md-4 col-sm-6 mb-5 col-image">
+    <div className="col-lg-4 col-md-4 col-sm-6 mb-5 col-image p-1">
       <figure className="w-100">
         <img src={url} alt="" className="img-fluid w-100 rounded-1 img-post" />
         <div className="row mt-2">

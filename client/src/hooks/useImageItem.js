@@ -15,6 +15,7 @@ export default function useImagesItem() {
     fd.append("date", new Date().toLocaleString());
     fd.append("id_post", id);
     const data = await createComment(fd);
+    if (!data.ok) return setError(true);
     console.log(refEditor.current.editor.getContents());
   };
 

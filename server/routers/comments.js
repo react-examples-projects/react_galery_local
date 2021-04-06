@@ -47,7 +47,7 @@ router.delete("/:id", async (req, res) => {
 // delete all comments in only post
 router.delete("/all/:id", async (req, res) => {
   try {
-    const id_post = req.params.id_post;
+    const id_post = req.params.id;
     const data = await deleteAllCommentsInPost(id_post);
     res.json(success(data));
   } catch (err) {
