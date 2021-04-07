@@ -6,16 +6,18 @@ export default function useImagesItem() {
   const { id } = useParams();
   const [postImage, setPostImage] = useState({});
   const [isLoading, setLoading] = useState(true);
-  const [isError, setError] = useState(false);
+  const [isErrorInDownloadPost, setErrorInDownloadPost] = useState(false);
+  const [isErrorInComment, setErrorInComment] = useState(false);
   const refEditor = useRef();
 
   const handleSubmit = async (e) => {
+    setErrorInComment(false)
     e.preventDefault();
     const fd = new FormData(e.target);
     fd.append("date", new Date().toLocaleString());
     fd.append("id_post", id);
     const data = await createComment(fd);
-    if (!data.ok) return setError(true);
+    if (!data.ok) return setErrorInComment(true);
     console.log(refEditor.current.editor.getContents());
   };
 
@@ -23,10 +25,10 @@ export default function useImagesItem() {
     async function getPostImage() {
       try {
         const data = await getPost(id);
-        if (!data.ok) return setError(true);
+        if (!data.ok) return setErrorInDownloadPost(true);
         setPostImage(data);
       } catch {
-        setError(true);
+        setErrorInDownloadPost(true);
       } finally {
         setLoading(false);
       }
@@ -38,7 +40,8 @@ export default function useImagesItem() {
   return {
     postImage,
     isLoading,
-    isError,
+    isErrorInDownloadPost,
+    isErrorInComment,
     handleSubmit,
     refEditor,
   };

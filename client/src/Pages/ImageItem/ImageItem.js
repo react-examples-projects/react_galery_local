@@ -1,14 +1,18 @@
 import useImagesItem from "../../hooks/useImageItem";
 import Loader from "react-loader-spinner";
-import css from "./ImageItem.module.css";
+import css from "./css/ImageItem.module.css";
 import SunEditor from "suneditor-react";
 import ImageItemComments from "./ImageItemComments";
+import AlertError from "../../components/AlertError";
+import { BiCheck } from "react-icons/bi";
+
 
 export default function ImageItem() {
   const {
     postImage,
     isLoading,
-    isError,
+    isErrorInDownloadPost,
+    isErrorInComment,
     handleSubmit,
     refEditor,
   } = useImagesItem();
@@ -26,7 +30,7 @@ export default function ImageItem() {
     );
   }
 
-  if (isError) {
+  if (isErrorInDownloadPost) {
     return <h4>Ocurrió un error al consultar el post</h4>;
   }
   const { title, url, date } = postImage.data;
@@ -42,9 +46,13 @@ export default function ImageItem() {
         className="img-flud w-100 rounded"
         alt={"Post upload at " + date}
       />
-      <h5 className="my-3">Let your comments</h5>
+      <h5 className="my-3">Deja tu comentario</h5>
       <hr />
+
       <form onSubmit={handleSubmit} className="mb-5" autoComplete="off">
+        {isErrorInComment && (
+          <AlertError text="Ocurrió al comentar la publicación" />
+        )}
         <div className="mb-2">
           <input
             type="text"
@@ -61,10 +69,14 @@ export default function ImageItem() {
             name="content"
             lang="es"
             autoFocus
+            required
           />
         </div>
+        <small className="d-flex align-items-center text-muted my-2">
+          <BiCheck className="me-1"/> Todos los campos son obligatorios
+        </small>
         <button type="submit" className="btn btn-success btn-sm">
-          Send comment
+          Comentar
         </button>
       </form>
       <ImageItemComments />
