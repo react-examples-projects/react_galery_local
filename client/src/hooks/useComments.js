@@ -23,6 +23,7 @@ export default function useComments() {
     getComments();
   }, [id]);
   return {
+    setComments,
     comments,
     isLoading,
     isError,

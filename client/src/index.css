@@ -94,6 +94,7 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
+  border-radius: 0.2rem;
 }
 
 .col-image > figure:hover > .image-overlay {

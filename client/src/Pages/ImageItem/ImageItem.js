@@ -5,16 +5,17 @@ import SunEditor from "suneditor-react";
 import ImageItemComments from "./ImageItemComments";
 import AlertError from "../../components/AlertError";
 import { BiCheck } from "react-icons/bi";
-
-
+import BtnLoader from "../../components/BtnLoader";
 export default function ImageItem() {
   const {
     postImage,
     isLoading,
+    isLoadingCommenting,
     isErrorInDownloadPost,
     isErrorInComment,
     handleSubmit,
     refEditor,
+    commentsProps,
   } = useImagesItem();
 
   if (isLoading) {
@@ -68,18 +69,22 @@ export default function ImageItem() {
             height={120}
             name="content"
             lang="es"
-            autoFocus
             required
           />
         </div>
         <small className="d-flex align-items-center text-muted my-2">
-          <BiCheck className="me-1"/> Todos los campos son obligatorios
+          <BiCheck className="me-1" /> Todos los campos son obligatorios
         </small>
-        <button type="submit" className="btn btn-success btn-sm">
-          Comentar
-        </button>
+        
+        <BtnLoader
+          type="submit"
+          isLoading={isLoadingCommenting}
+          text="Comentar"
+          className="btn-success btn-sm"
+        />
       </form>
-      <ImageItemComments />
+
+      <ImageItemComments {...commentsProps} />
     </div>
   );
 }

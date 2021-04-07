@@ -19,9 +19,8 @@ export default function BtnLoader({
         <Loader
           type="Oval"
           color="#000000b2"
-          height={18}
-          width={18}
-          className="ms-2"
+          height={19}
+          width={19}
         />
       ) : (
         text || children

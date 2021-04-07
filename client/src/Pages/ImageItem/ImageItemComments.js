@@ -1,10 +1,8 @@
-import useComments from "../../hooks/useComments";
 import Loader from "react-loader-spinner";
 import AlertError from "../../components/AlertError";
+import ImageItemComment from "./ImageItemComment";
 
-export default function ImageItemComments() {
-  const { comments, isLoading, isError } = useComments();
-
+export default function ImageItemComments({ comments, isLoading, isError }) {
   if (isLoading) {
     return (
       <Loader
@@ -37,20 +35,7 @@ export default function ImageItemComments() {
   return (
     <div className="mb-5">
       {comments.map((comment) => {
-        return (
-          <div key={comment._id} className="p-3 mb-4 border rounded shadow-sm">
-            <p className="text-capitalize fw-bolder mb-2">{comment.username}</p>
-            <div
-              style={{ fontSize: "14px" }}
-              dangerouslySetInnerHTML={{
-                __html: comment.content,
-              }}
-            />
-            <time className="text-muted" dateTime={comment.date}>
-              <small>{comment.date}</small>
-            </time>
-          </div>
-        );
+        return <ImageItemComment key={comment._id} {...comment} />;
       })}
     </div>
   );
