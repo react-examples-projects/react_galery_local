@@ -24,7 +24,7 @@ function App() {
         <form encType="multipart/form-data" onSubmit={handleSubmit}>
           <div className="mb-3">
             <label htmlFor="files" className="mb-2">
-              <h4 className="title"> Subir imágenes</h4>
+              <h4 className="title text-dark"> Subir imágenes</h4>
             </label>
 
             <input
@@ -32,7 +32,7 @@ function App() {
               name="files"
               id="files"
               accept="image/*"
-              className="form-control form-control-sm w-auto"
+              className="form-control form-control-sm w-auto text-dark"
               ref={inputFile}
               multiple
               required

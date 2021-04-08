@@ -34,7 +34,7 @@ export default function ImageList({
   }
 
   return (
-    <div className="row">
+    <div className="row w-100 mx-auto">
       {images.map(({ id, ...props }) => {
         return <ImageItem {...props} {...{ id, setImages }} key={id} />;
       })}
