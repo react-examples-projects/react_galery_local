@@ -3,7 +3,7 @@ import css from "./css/ImageItem.module.css";
 
 export default function ImageItemComment({ username, content, date }) {
   return (
-    <div className={`p-3 mb-4 border bg-dark rounded shadow-sm ${css.comment}`}>
+    <div className={`p-3 mb-4 bg-dark rounded shadow-sm ${css.comment}`}>
       <p className="text-capitalize fw-bolder mb-2">{username}</p>
       <div
         style={{ fontSize: "14px" }}
