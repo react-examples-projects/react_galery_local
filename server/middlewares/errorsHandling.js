@@ -10,11 +10,12 @@ function clientErrorHandler(err, req, res, next) {
 }
 
 function errorHandler(err, req, res, next) {
+  console.log(err)
   // catch errors while streaming
   if (req.headersSent) {
     next(err);
   }
-  res.status(500).json("error", { error: err, status: 500 });
+  res.status(500).json({ error: err.message, status: 500 });
 }
 
 module.exports = {

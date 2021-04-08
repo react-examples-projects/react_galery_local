@@ -8,11 +8,16 @@ const {
   editTitleImage,
   getPostById,
 } = require("../controllers/images");
-const { imageSchemaValidator } = require("../helpers/shemaValidators");
+const {
+  imageSchemaValidator,
+  imageDeleteSchemaValidor,
+  imageUpdateSchemaValidor,
+  imageGetSchemaValidor,
+} = require("../helpers/shemaValidators");
 const validation = require("../middlewares/validationHandler");
 
 // To validate the payload body to save in the database
-router.post("/", /*validation(imageSchemaValidator),*/ async (req, res) => {
+router.post("/", validation(imageSchemaValidator), async (req, res) => {
   const files = req.body["files[]"];
   try {
     const saved = await saveFilesDatabase(files);
@@ -34,18 +39,22 @@ router.get("/", async (req, res) => {
   }
 });
 
-router.delete("/:id", async (req, res) => {
-  try {
-    const id = req.params.id;
-    const data = await deleteImageDatabase(id);
-    res.json(success({ id, ...data }));
-  } catch (err) {
-    console.log(err);
-    sendError(res, `An error ocurred while deleting the post`);
+router.delete(
+  "/:id",
+  validation(imageDeleteSchemaValidor ,"params"),
+  async (req, res) => {
+    try {
+      const id = req.params.id;
+      const data = await deleteImageDatabase(id);
+      res.json(success({ id, ...data }));
+    } catch (err) {
+      console.log(err);
+      sendError(res, `An error ocurred while deleting the post`);
+    }
   }
-});
+);
 
-router.put("/:id", async (req, res) => {
+router.put("/:id", validation(imageUpdateSchemaValidor, "params"), async (req, res) => {
   try {
     const id = req.params.id;
     const { title } = req.body;
@@ -57,7 +66,7 @@ router.put("/:id", async (req, res) => {
   }
 });
 
-router.get("/:id", async (req, res) => {
+router.get("/:id", validation(imageGetSchemaValidor, "params"), async (req, res) => {
   try {
     const id = req.params.id;
     const data = await getPostById(id);

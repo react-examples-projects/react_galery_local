@@ -7,7 +7,7 @@ export default function ImageItemComments({ comments, isLoading, isError }) {
     return (
       <Loader
         type="Oval"
-        color="#000000b2"
+        color="#dee3ea"
         height={40}
         width={40}
         className="d-flex justify-content-center"

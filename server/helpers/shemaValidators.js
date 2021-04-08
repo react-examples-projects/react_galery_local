@@ -1,4 +1,8 @@
 const Joi = require("joi");
+const id = Joi.string()
+  .regex(/^[0-9a-fA-F]{24}$/)
+  .required();
+const idFormat = Joi.object({ id });
 
 const imageSchemaValidator = Joi.object({
   "files[]": Joi.alternatives().try(
@@ -7,7 +11,15 @@ const imageSchemaValidator = Joi.object({
   ),
 });
 
-const commentShemaValidator = Joi.object({
+const imageDeleteSchemaValidor = idFormat;
+const imageUpdateSchemaValidor = idFormat;
+const imageGetSchemaValidor = idFormat;
+
+const commentGetSchemaValidor = idFormat;
+const commentDeleteSchemaValidor = idFormat;
+const commentDeleteAllSchemaValidor = idFormat;
+const commentUpdateAllSchemaValidor = idFormat;
+const commentPostShemaValidator = Joi.object({
   id_post: Joi.string().regex(/^[0-9a-fA-F]{24}$/),
   username: Joi.string().required(),
   content: Joi.string().required(),
@@ -15,6 +27,15 @@ const commentShemaValidator = Joi.object({
 });
 
 module.exports = {
+  // images
   imageSchemaValidator,
-  commentShemaValidator,
+  imageDeleteSchemaValidor,
+  imageUpdateSchemaValidor,
+  imageGetSchemaValidor,
+  // comments
+  commentPostShemaValidator,
+  commentGetSchemaValidor,
+  commentDeleteSchemaValidor,
+  commentDeleteAllSchemaValidor,
+  commentUpdateAllSchemaValidor,
 };

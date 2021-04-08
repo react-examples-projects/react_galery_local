@@ -33,6 +33,14 @@ svg {
   background: transparent;
 }
 
+.alert * {
+  color: rgb(11, 14, 17);
+}
+
+.alert.alert-danger svg {
+  fill: rgb(11, 14, 17);
+}
+
 body .sun-editor,
 body .sun-editor .se-wrapper .se-wrapper-code,
 body .sun-editor .se-toolbar,

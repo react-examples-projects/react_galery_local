@@ -17,19 +17,23 @@ export default function useImagesItem() {
   const handleChangeContent = (content) => {
     setPostContent(content);
   };
-  
+
   const handleSubmit = async (e) => {
     setErrorInComment(false);
     setLoadingComenting(true);
     e.preventDefault();
-    const fd = new FormData(e.target);
-    fd.append("date", new Date().toLocaleString());
-    fd.append("id_post", id);
-    fd.append("content", postContent);
-    const data = await createComment(fd);
+    try {
+      const fd = new FormData(e.target);
+      fd.append("date", new Date().toLocaleString());
+      fd.append("id_post", id);
+      fd.append("content", postContent);
+      const data = await createComment(fd);
+      if (!data.ok) return setErrorInComment(true);
+      setComments((comments) => [data.data, ...comments]);
+    } catch {
+      setErrorInComment(true);
+    }
     setLoadingComenting(false);
-    if (!data.ok) return setErrorInComment(true);
-    setComments((comments) => [data.data, ...comments]);
   };
 
   useEffect(() => {
