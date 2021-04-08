@@ -14,6 +14,7 @@ export default function ImageItem() {
     isErrorInDownloadPost,
     isErrorInComment,
     handleSubmit,
+    handleChangeContent,
     refEditor,
     commentsProps,
   } = useImagesItem();
@@ -22,7 +23,7 @@ export default function ImageItem() {
     return (
       <Loader
         type="Oval"
-        color="#000000b2"
+        color="#dee3ea"
         height={80}
         width={80}
         className="d-flex justify-content-center"
@@ -44,7 +45,7 @@ export default function ImageItem() {
       </time>
       <img
         src={url}
-        className="img-flud w-100 rounded"
+        className="img-flud mw-100 d-block rounded-3"
         alt={"Post upload at " + date}
       />
       <h5 className="my-3">Deja tu comentario</h5>
@@ -54,7 +55,7 @@ export default function ImageItem() {
         {isErrorInComment && (
           <AlertError text="Ocurrió al comentar la publicación" />
         )}
-        <div className="mb-2">
+        <div className="mb-3">
           <input
             type="text"
             name="username"
@@ -63,11 +64,11 @@ export default function ImageItem() {
             required
           />
         </div>
-        <div className="mb-2">
+        <div className="mb-3">
           <SunEditor
             ref={refEditor}
             height={120}
-            name="content"
+            onChange={handleChangeContent}
             lang="es"
             required
           />
@@ -75,7 +76,7 @@ export default function ImageItem() {
         <small className="d-flex align-items-center text-muted my-2">
           <BiCheck className="me-1" /> Todos los campos son obligatorios
         </small>
-        
+
         <BtnLoader
           type="submit"
           isLoading={isLoadingCommenting}

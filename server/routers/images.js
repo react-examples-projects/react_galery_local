@@ -8,8 +8,11 @@ const {
   editTitleImage,
   getPostById,
 } = require("../controllers/images");
+const { imageSchemaValidator } = require("../helpers/shemaValidators");
+const validation = require("../middlewares/validationHandler");
 
-router.post("/", async (req, res) => {
+// To validate the payload body to save in the database
+router.post("/", /*validation(imageSchemaValidator),*/ async (req, res) => {
   const files = req.body["files[]"];
   try {
     const saved = await saveFilesDatabase(files);

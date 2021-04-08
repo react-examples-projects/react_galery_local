@@ -8,8 +8,10 @@ const {
   editComment,
   createComment,
 } = require("../controllers/comments");
+const { commentShemaValidator } = require("../helpers/shemaValidators");
+const validation = require("../middlewares/validationHandler");
 
-router.post("/", async (req, res) => {
+router.post("/", /*validation(commentShemaValidator),*/ async (req, res) => {
   try {
     const payload = req.body;
     const saved = await createComment(payload);

@@ -10,11 +10,35 @@
   margin: 0;
   padding: 0;
   line-height: normal;
+  color: rgb(222, 227, 234);
 }
 
 body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  background: rgb(11, 14, 17);
+}
+
+svg {
+  fill: rgb(222, 227, 234);
+}
+
+.form-control {
+  border-color: rgb(222, 227, 234);
+}
+
+.form-control,
+.form-control:focus {
+  color: rgb(222, 227, 234);
+  background: transparent;
+}
+
+body .sun-editor,
+body .sun-editor .se-wrapper .se-wrapper-code,
+body .sun-editor .se-toolbar,
+body .sun-editor .se-wrapper .se-wrapper-wysiwyg {
+  color: rgb(222, 227, 234);
+  background: rgb(11, 14, 17);
 }
 
 .title {
@@ -74,7 +98,6 @@ body {
 
 .col-image > figure figcaption {
   font-size: 80%;
-  color: rgba(0, 0, 0, 0.698);
 }
 
 .col-image > figure form input {

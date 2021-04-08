@@ -6,6 +6,7 @@ import useComments from "./useComments";
 export default function useImagesItem() {
   const { id } = useParams();
   const [postImage, setPostImage] = useState({});
+  const [postContent, setPostContent] = useState("");
   const [isLoading, setLoading] = useState(true);
   const [isLoadingCommenting, setLoadingComenting] = useState(false);
   const [isErrorInDownloadPost, setErrorInDownloadPost] = useState(false);
@@ -13,6 +14,10 @@ export default function useImagesItem() {
   const { setComments, ...commentsProps } = useComments();
   const refEditor = useRef();
 
+  const handleChangeContent = (content) => {
+    setPostContent(content);
+  };
+  
   const handleSubmit = async (e) => {
     setErrorInComment(false);
     setLoadingComenting(true);
@@ -20,6 +25,7 @@ export default function useImagesItem() {
     const fd = new FormData(e.target);
     fd.append("date", new Date().toLocaleString());
     fd.append("id_post", id);
+    fd.append("content", postContent);
     const data = await createComment(fd);
     setLoadingComenting(false);
     if (!data.ok) return setErrorInComment(true);
@@ -49,6 +55,7 @@ export default function useImagesItem() {
     isErrorInDownloadPost,
     isErrorInComment,
     handleSubmit,
+    handleChangeContent,
     refEditor,
     commentsProps: {
       ...commentsProps,

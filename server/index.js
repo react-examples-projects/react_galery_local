@@ -9,6 +9,10 @@ const { PORT } = require("./config/config");
 const { success } = require("./helpers/responses");
 const imagesRouters = require("./routers/images");
 const commentsRouters = require("./routers/comments");
+const {
+  clientErrorHandler,
+  errorHandler,
+} = require("./middlewares/errorsHandling");
 
 // middlewares
 app.use(bodyParser.json());
@@ -24,6 +28,9 @@ app.use("/api/comments", commentsRouters);
 app.get("/", (req, res) => {
   res.json(success("Index route is empty"));
 });
+
+app.use(clientErrorHandler);
+app.use(errorHandler);
 
 app.listen(PORT, () => {
   console.log(`The server started on PORT: ${PORT}`);

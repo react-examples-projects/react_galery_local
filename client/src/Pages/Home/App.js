@@ -60,7 +60,7 @@ function App() {
       {isDownloadingImages ? (
         <Loader
           type="Oval"
-          color="#000000b2"
+          color="#dee3ea"
           height={50}
           width={50}
           className="loader-app"
