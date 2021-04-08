@@ -1,4 +1,4 @@
-import { BiTrash, BiEditAlt } from "react-icons/bi";
+import { BiTrash, BiEditAlt, BiLike, BiDislike } from "react-icons/bi";
 import Loader from "react-loader-spinner";
 import { Link } from "react-router-dom";
 import TextError from "../../components/TextError";
@@ -23,8 +23,8 @@ export default function ImageItem(props) {
     <div className="col-lg-4 col-md-4 col-sm-6 mb-5 col-image p-1">
       <figure className="w-100">
         <img src={url} alt="" className="img-fluid w-100 rounded-1 img-post" />
-        <div className="row mt-2">
-          <div className="col-9 d-flex align-items-center">
+        <div className="row mt-2 w-100 mx-auto">
+          <div className="col-md-12 d-flex align-items-center p-0">
             {isEditing ? (
               <form onSubmit={handleSubmit} className="w-100">
                 <input
@@ -40,35 +40,44 @@ export default function ImageItem(props) {
               <figcaption>{title}</figcaption>
             )}
           </div>
-
-          <div className="col-3 icons p-0">
+          <hr className="m-0 p-0 mt-2"/>
+          <div className="col-md-12 icons p-0">
             {isLoadingEditing ? (
               <Loader
-                color="#000"
+                color="#dee3ea"
                 type="Oval"
                 width={18}
                 height={18}
                 className="loader-item"
               />
             ) : (
-              <button className="btn p-1 me-1" onClick={toggleEditing}>
+              <button className="btn p-0 me-1" onClick={toggleEditing}>
                 <BiEditAlt />
               </button>
             )}
 
             {isLoadingDelete ? (
               <Loader
-                color="#000"
+                color="#dee3ea"
                 type="Oval"
                 width={18}
                 height={18}
                 className="loader-item"
               />
             ) : (
-              <button className="btn p-1" onClick={() => deleteItem(id)}>
+              <button className="btn p-0 me-1" onClick={() => deleteItem(id)}>
                 <BiTrash />
               </button>
             )}
+            <button className="btn p-0 me-1">
+              <BiLike />
+              <small className="ms-1">10</small>
+            </button>
+
+            <button className="btn p-0 me-1">
+              <BiDislike />
+              <small className="ms-1">20</small>
+            </button>
           </div>
         </div>
 
