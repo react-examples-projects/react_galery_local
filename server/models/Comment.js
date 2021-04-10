@@ -6,7 +6,7 @@ const CommentModel = new Schema({
   content: { type: String, required: true, trim: true },
   date: { type: String, required: true },
   likes: { type: Number, default: 0 },
-  dislike: { type: Number, default: 0 },
+  dislikes: { type: Number, default: 0 },
   replies: { type: Array, default: [] },
 });
 

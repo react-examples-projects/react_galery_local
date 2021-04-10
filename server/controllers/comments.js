@@ -33,12 +33,9 @@ async function createComment(payload) {
 
 async function likeComment(id) {
   const commentLikes = await getComment(id);
-  const commentUpdated = await CommentModel.updateOne(
-    { _id: id },
-    { likes: commentLikes.likes + 1 }
-  );
-
-  return commentUpdated;
+  const likes = commentLikes.likes + 1;
+  const commentUpdated = await CommentModel.updateOne({ _id: id }, { likes });
+  return { id, likes };
 }
 
 module.exports = {

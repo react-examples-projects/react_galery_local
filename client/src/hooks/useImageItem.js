@@ -63,6 +63,7 @@ export default function useImagesItem() {
     refEditor,
     commentsProps: {
       ...commentsProps,
+      setComments,
     },
   };
 }

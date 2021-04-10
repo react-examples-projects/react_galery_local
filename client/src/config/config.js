@@ -15,6 +15,7 @@ const CREATE_COMMENT = URL_COMMENTS + "/";
 const DELETE_COMMENT = (id) => `${URL_COMMENTS}/${id}`;
 const DELETE_ALL_COMMENTS = (id) => `${URL_COMMENTS}/all/${id}`;
 const EDIT_COMMENT = (id) => `${URL_COMMENTS}/${id}`;
+const LIKE_COMMENT = (id) => `${URL_COMMENTS}/like/${id}`;
 
 export {
   API_URL,
@@ -32,4 +33,5 @@ export {
   DELETE_COMMENT,
   DELETE_ALL_COMMENTS,
   EDIT_COMMENT,
+  LIKE_COMMENT,
 };

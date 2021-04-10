@@ -11,6 +11,7 @@ import {
   DELETE_COMMENT,
   DELETE_ALL_COMMENTS,
   EDIT_COMMENT,
+  LIKE_COMMENT,
 } from "../config/config";
 import { toArrayUrlFiles } from "./file";
 
@@ -70,3 +71,8 @@ export const deleteAllCommentsInPost = async (id_post) => {
   const data = await xhr(DELETE_ALL_COMMENTS(id_post), null, "DELETE");
   return data;
 };
+
+export const likeComment = async (id) => {
+  const data = await xhr(LIKE_COMMENT(id), null, "POST");
+  return data;
+}

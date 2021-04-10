@@ -2,7 +2,12 @@ import Loader from "react-loader-spinner";
 import AlertError from "../../components/AlertError";
 import ImageItemComment from "./ImageItemComment";
 
-export default function ImageItemComments({ comments, isLoading, isError }) {
+export default function ImageItemComments({
+  setComments,
+  comments,
+  isLoading,
+  isError,
+}) {
   if (isLoading) {
     return (
       <Loader
@@ -35,7 +40,13 @@ export default function ImageItemComments({ comments, isLoading, isError }) {
   return (
     <div className="mb-5">
       {comments.map((comment) => {
-        return <ImageItemComment key={comment._id} {...comment} />;
+        return (
+          <ImageItemComment
+            key={comment._id}
+            {...comment}
+            setComments={setComments}
+          />
+        );
       })}
     </div>
   );
