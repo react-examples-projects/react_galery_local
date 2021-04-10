@@ -1,7 +1,6 @@
-import React from "react";
 import css from "./css/ImageItem.module.css";
-import { BiLike, BiDislike } from "react-icons/bi";
 import { likeComment } from "../../helpers/api";
+import ReactionsCount from "../../components/ReactionsCount";
 
 export default function ImageItemComment({
   _id,
@@ -12,7 +11,7 @@ export default function ImageItemComment({
   dislikes,
   setComments,
 }) {
-  const handleLike = async () => {
+  const onLike = async () => {
     try {
       const data = await likeComment(_id);
       setComments((comments) => {
@@ -27,7 +26,8 @@ export default function ImageItemComment({
     }
   };
 
-  const handleDislike = () => {};
+  const onDislike = () => {};
+
   return (
     <div className={`p-3 mb-4 bg-dark rounded shadow-sm ${css.comment}`}>
       <p className="text-capitalize fw-bolder mb-2">{username}</p>
@@ -49,21 +49,8 @@ export default function ImageItemComment({
             {date}
           </small>
         </time>
-        <div>
-          <small className="me-3 d-inline-block">
-            <button className="btn btn-sm p-0" onClick={handleLike}>
-              <BiLike />
-              <span className="ms-1 d-inline-block">{likes}</span>
-            </button>
-          </small>
 
-          <small>
-            <button className="btn btn-sm p-0">
-              <BiDislike />
-              <span className="ms-1 d-inline-block">{dislikes}</span>
-            </button>
-          </small>
-        </div>
+        <ReactionsCount {...{ likes, dislikes, onLike, onDislike }} />
       </div>
     </div>
   );

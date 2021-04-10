@@ -1,8 +1,9 @@
-import { BiTrash, BiEditAlt, BiLike, BiDislike } from "react-icons/bi";
+import { BiTrash, BiEditAlt } from "react-icons/bi";
 import Loader from "react-loader-spinner";
 import { Link } from "react-router-dom";
 import TextError from "../../components/TextError";
 import useImageItemList from "../../hooks/useImageItemList";
+import ReactionsCount from "../../components/ReactionsCount";
 
 export default function ImageItem(props) {
   const { url, title, id } = props;
@@ -72,17 +73,7 @@ export default function ImageItem(props) {
               )}
             </div>
 
-            <div>
-              <button className="btn p-0 me-1 ms-auto">
-                <BiLike />
-                <small className="ms-1">10</small>
-              </button>
-
-              <button className="btn p-0 me-1">
-                <BiDislike />
-                <small className="ms-1">20</small>
-              </button>
-            </div>
+            <ReactionsCount />
           </div>
         </div>
 
