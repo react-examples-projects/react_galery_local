@@ -5,6 +5,11 @@ async function getComments(id_post) {
   return comments;
 }
 
+async function getComment(id) {
+  const comment = await CommentModel.findById(id);
+  return comment.toObject();
+}
+
 async function deleteComment(id) {
   const data = await CommentModel.deleteOne({ _id: id });
   return data;
@@ -26,10 +31,21 @@ async function createComment(payload) {
   return data;
 }
 
+async function likeComment(id) {
+  const commentLikes = await getComment(id);
+  const commentUpdated = await CommentModel.updateOne(
+    { _id: id },
+    { likes: commentLikes.likes + 1 }
+  );
+
+  return commentUpdated;
+}
+
 module.exports = {
   getComments,
   deleteComment,
   editComment,
   createComment,
   deleteAllCommentsInPost,
+  likeComment,
 };

@@ -41,7 +41,7 @@ router.get("/", async (req, res) => {
 
 router.delete(
   "/:id",
-  validation(imageDeleteSchemaValidor ,"params"),
+  validation(imageDeleteSchemaValidor, "params"),
   async (req, res) => {
     try {
       const id = req.params.id;
@@ -54,27 +54,35 @@ router.delete(
   }
 );
 
-router.put("/:id", validation(imageUpdateSchemaValidor, "params"), async (req, res) => {
-  try {
-    const id = req.params.id;
-    const { title } = req.body;
-    const data = await editTitleImage(id, title);
-    res.json(success({ id, ...data }));
-  } catch (err) {
-    console.log(err);
-    sendError(res, `An error ocurred while editing the post`);
+router.put(
+  "/:id",
+  validation(imageUpdateSchemaValidor, "params"),
+  async (req, res) => {
+    try {
+      const id = req.params.id;
+      const { title } = req.body;
+      const data = await editTitleImage(id, title);
+      res.json(success({ id, ...data }));
+    } catch (err) {
+      console.log(err);
+      sendError(res, `An error ocurred while editing the post`);
+    }
   }
-});
+);
 
-router.get("/:id", validation(imageGetSchemaValidor, "params"), async (req, res) => {
-  try {
-    const id = req.params.id;
-    const data = await getPostById(id);
-    res.json(success(data));
-  } catch (err) {
-    console.log(err);
-    sendError(res, `An error ocurred while finding the post`);
+router.get(
+  "/:id",
+  validation(imageGetSchemaValidor, "params"),
+  async (req, res) => {
+    try {
+      const id = req.params.id;
+      const data = await getPostById(id);
+      res.json(success(data));
+    } catch (err) {
+      console.log(err);
+      sendError(res, `An error ocurred while finding the post`);
+    }
   }
-});
+);
 
 module.exports = router;
