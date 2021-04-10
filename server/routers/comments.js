@@ -7,6 +7,7 @@ const {
   deleteAllCommentsInPost,
   editComment,
   createComment,
+  likeComment,
 } = require("../controllers/comments");
 const {
   commentPostShemaValidator,
@@ -91,5 +92,17 @@ router.put(
     }
   }
 );
+
+router.post("/like/:id", async (req, res) => {
+  try {
+    const id = req.params.id;
+    const comment = await likeComment(id);
+    res.json(comment);
+    
+  } catch (err) {
+    console.log(err);
+    sendError(res, `An error ocurred while like the comment`);
+  }
+});
 
 module.exports = router;
