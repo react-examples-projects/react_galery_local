@@ -19,6 +19,8 @@
     "dotenv": "^8.2.0",
     "express": "^4.17.1",
     "express-fileupload": "^1.2.1",
+    "filereader": "^0.10.3",
+    "joi": "^17.4.0",
     "mongoose": "^5.12.2"
   },
   "devDependencies": {

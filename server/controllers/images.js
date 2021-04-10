@@ -1,46 +1,27 @@
 const ImageModel = require("../models/Image");
-const { PORT } = require("../config/config");
-const { createFile, formatFileProps } = require("../helpers/file");
-
-async function saveFileDatabase(file) {
-  const image = new ImageModel({
-    url: `http://127.0.0.1:${PORT}/${file.name}`,
-    title: "Unknow title",
-    filename: file.name,
-  });
-  const saved = await image.save();
-  return saved;
-}
-
-async function createFiles(files) {
-  const data = [];
-  for (const file of files) {
-    createFile("./uploads", file);
-    const fileSaved = await saveFileDatabase(file);
-    data.push(formatFileProps(fileSaved));
-  }
-  return data;
-}
-
-async function createOneFile(file) {
-  createFile("./uploads", file);
-  const fileSaved = await saveFileDatabase(file);
-  return formatFileProps(fileSaved);
-}
+const { saveImageModel } = require("../helpers/models");
+const { toArrayFormatFile } = require("../helpers/file");
 
 async function saveFilesDatabase(files) {
-  let saved;
-  if (files instanceof Array) {
-    saved = await createFiles(files);
-    return saved;
+  const imagesSaved = [];
+  const save = async (url, title, date) => {
+    const saved = await saveImageModel({ url, title, date });
+    imagesSaved.push(saved);
+  };
+
+  if (Array.isArray(files)) {
+    for (const url of files) {
+      await save(url, "Unknow title", new Date().toLocaleString());
+    }
+  } else {
+    await save(files, "Unknow title", new Date().toLocaleString());
   }
-  saved = await createOneFile(files);
-  return saved;
+  return toArrayFormatFile(imagesSaved);
 }
 
 async function getImagesDatabase() {
-  const images = (await ImageModel.find({})).map(formatFileProps);
-  return images;
+  const images = await ImageModel.find({});
+  return toArrayFormatFile(images);
 }
 
 async function deleteImageDatabase(id) {
@@ -48,11 +29,20 @@ async function deleteImageDatabase(id) {
   return data;
 }
 
+async function editTitleImage(id, title) {
+  const data = await ImageModel.updateOne({ _id: id }, { title });
+  return data;
+}
+
+async function getPostById(id) {
+  const data = await ImageModel.findById(id);
+  return data.toObject();
+}
+
 module.exports = {
-  saveFileDatabase,
-  createFiles,
-  createOneFile,
   saveFilesDatabase,
   getImagesDatabase,
   deleteImageDatabase,
+  editTitleImage,
+  getPostById,
 };

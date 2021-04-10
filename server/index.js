@@ -5,13 +5,14 @@ const fileUpload = require("express-fileupload");
 const morgan = require("morgan");
 const cors = require("cors");
 const app = express();
-const fs = require("fs");
 const { PORT } = require("./config/config");
+const { success } = require("./helpers/responses");
+const imagesRouters = require("./routers/images");
+const commentsRouters = require("./routers/comments");
 const {
-  saveFilesDatabase,
-  getImagesDatabase,
-  deleteImageDatabase,
-} = require("./controllers/images");
+  clientErrorHandler,
+  errorHandler,
+} = require("./middlewares/errorsHandling");
 
 // middlewares
 app.use(bodyParser.json());
@@ -22,31 +23,14 @@ app.use(cors());
 app.use(express.static(__dirname + "/uploads"));
 
 // routes
+app.use("/api/posts", imagesRouters);
+app.use("/api/comments", commentsRouters);
 app.get("/", (req, res) => {
-  res.json({
-    data: "Index route empty",
-  });
+  res.json(success("Index route is empty"));
 });
 
-app.post("/post", async (req, res) => {
-  const files = req.files.files;
-  const saved = await saveFilesDatabase(files);
-  res.json(saved);
-});
-
-app.get("/posts", async (req, res) => {
-  const images = await getImagesDatabase();
-  res.json(images);
-});
-
-app.delete("/post/:id", async (req, res) => {
-  const id = req.params.id;
-  const filename = req.body.filename;
-  const data = await deleteImageDatabase(id);
-  fs.unlink(`./uploads/${filename}`, () => {
-    res.json({ ...data, filename });
-  });
-});
+app.use(clientErrorHandler);
+app.use(errorHandler);
 
 app.listen(PORT, () => {
   console.log(`The server started on PORT: ${PORT}`);
