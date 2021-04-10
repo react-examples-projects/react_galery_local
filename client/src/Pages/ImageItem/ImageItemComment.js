@@ -1,3 +1,4 @@
+import { useState } from "react";
 import css from "./css/ImageItem.module.css";
 import { likeComment } from "../../helpers/api";
 import ReactionsCount from "../../components/ReactionsCount";
@@ -11,9 +12,13 @@ export default function ImageItemComment({
   dislikes,
   setComments,
 }) {
+  const [isError, setError] = useState(false);
+
   const onLike = async () => {
     try {
+      setError(false);
       const data = await likeComment(_id);
+      if (!data.ok) return setError(true);
       setComments((comments) => {
         const copy = [...comments];
         const comment = copy.find((comment) => comment._id === _id);
@@ -23,6 +28,7 @@ export default function ImageItemComment({
       });
     } catch (error) {
       console.log(error);
+      setError(true);
     }
   };
 
@@ -50,7 +56,7 @@ export default function ImageItemComment({
           </small>
         </time>
 
-        <ReactionsCount {...{ likes, dislikes, onLike, onDislike }} />
+        <ReactionsCount {...{ likes, dislikes, onLike, onDislike, isError }} />
       </div>
     </div>
   );
