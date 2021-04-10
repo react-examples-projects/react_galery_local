@@ -40,44 +40,49 @@ export default function ImageItem(props) {
               <figcaption>{title}</figcaption>
             )}
           </div>
-          <hr className="m-0 p-0 mt-2"/>
-          <div className="col-md-12 icons p-0">
-            {isLoadingEditing ? (
-              <Loader
-                color="#dee3ea"
-                type="Oval"
-                width={18}
-                height={18}
-                className="loader-item"
-              />
-            ) : (
-              <button className="btn p-0 me-1" onClick={toggleEditing}>
-                <BiEditAlt />
-              </button>
-            )}
+          <hr className="m-0 p-0 mt-2" />
+          <div className="col-md-12 icons p-0 d-flex justify-content-between align-items-center">
+            <div>
+              {isLoadingEditing ? (
+                <Loader
+                  color="#dee3ea"
+                  type="Oval"
+                  width={18}
+                  height={18}
+                  className="loader-item"
+                />
+              ) : (
+                <button className="btn p-0 me-1" onClick={toggleEditing}>
+                  <BiEditAlt />
+                </button>
+              )}
 
-            {isLoadingDelete ? (
-              <Loader
-                color="#dee3ea"
-                type="Oval"
-                width={18}
-                height={18}
-                className="loader-item"
-              />
-            ) : (
-              <button className="btn p-0 me-1" onClick={() => deleteItem(id)}>
-                <BiTrash />
-              </button>
-            )}
-            <button className="btn p-0 me-1">
-              <BiLike />
-              <small className="ms-1">10</small>
-            </button>
+              {isLoadingDelete ? (
+                <Loader
+                  color="#dee3ea"
+                  type="Oval"
+                  width={18}
+                  height={18}
+                  className="loader-item"
+                />
+              ) : (
+                <button className="btn p-0 me-1" onClick={() => deleteItem(id)}>
+                  <BiTrash />
+                </button>
+              )}
+            </div>
 
-            <button className="btn p-0 me-1">
-              <BiDislike />
-              <small className="ms-1">20</small>
-            </button>
+            <div>
+              <button className="btn p-0 me-1 ms-auto">
+                <BiLike />
+                <small className="ms-1">10</small>
+              </button>
+
+              <button className="btn p-0 me-1">
+                <BiDislike />
+                <small className="ms-1">20</small>
+              </button>
+            </div>
           </div>
         </div>
 
