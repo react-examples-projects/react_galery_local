@@ -1,12 +1,9 @@
+import PropTypes from "prop-types";
 import ImageItem from "./ImageItem";
 import { BiError } from "react-icons/bi";
 import ThereNotPosts from "../../images/empty.svg";
 
-export default function ImageList({
-  images,
-  setImages,
-  isErrorDownloadingImages,
-}) {
+function ImageList({ images, setImages, isErrorDownloadingImages }) {
   if (isErrorDownloadingImages) {
     return (
       <h5 className="text-danger fw-bolder mt-5 d-flex align-items-center">
@@ -41,3 +38,11 @@ export default function ImageList({
     </div>
   );
 }
+
+ImageList.propTypes = {
+  images: PropTypes.array.isRequired,
+  setImages: PropTypes.func.isRequired,
+  isErrorDownloadingImages: PropTypes.bool.isRequired,
+};
+
+export default ImageList;

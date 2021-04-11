@@ -8,6 +8,7 @@ const {
   editComment,
   createComment,
   likeComment,
+  dislikeComment,
 } = require("../controllers/comments");
 const {
   commentPostShemaValidator,
@@ -101,6 +102,17 @@ router.post("/like/:id", async (req, res) => {
   } catch (err) {
     console.log(err);
     sendError(res, `An error ocurred while like the comment`);
+  }
+});
+
+router.post("/dislike/:id", async (req, res) => {
+  try {
+    const id = req.params.id;
+    const comment = await dislikeComment(id);
+    res.json(success(comment));
+  } catch (err) {
+    console.log(err);
+    sendError(res, `An error ocurred while dislike the comment`);
   }
 });
 

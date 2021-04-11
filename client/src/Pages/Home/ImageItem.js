@@ -1,3 +1,4 @@
+import PropTypes from "prop-types";
 import { BiTrash, BiEditAlt } from "react-icons/bi";
 import Loader from "react-loader-spinner";
 import { Link } from "react-router-dom";
@@ -5,7 +6,7 @@ import TextError from "../../components/TextError";
 import useImageItemList from "../../hooks/useImageItemList";
 import ReactionsCount from "../../components/ReactionsCount";
 
-export default function ImageItem(props) {
+function ImageItem(props) {
   const { url, title, id } = props;
   const {
     setTitleImage,
@@ -89,3 +90,11 @@ export default function ImageItem(props) {
     </div>
   );
 }
+
+ImageItem.propTypes = {
+  url: PropTypes.string.isRequired,
+  title: PropTypes.string.isRequired,
+  id: PropTypes.oneOfType([PropTypes.number, PropTypes.string]).isRequired,
+};
+
+export default ImageItem;

@@ -1,13 +1,20 @@
 import { BiError } from "react-icons/bi";
+import PropTypes from "prop-types";
 
-export default function TextError({ text = "An error ocurred", ...props }) {
+function TextError({ text = "An error ocurred", ...props }) {
   return (
     <small
       className="text-danger fw-bolder mb-2 d-flex align-items-center"
       {...props}
     >
-      <BiError style={{ fill: "#dc3545" }}/>
+      <BiError style={{ fill: "#dc3545" }} />
       <span className="mx-2 text-danger">{text}</span>
     </small>
   );
 }
+
+TextError.propTypes = {
+  text: PropTypes.string,
+};
+
+export default TextError;

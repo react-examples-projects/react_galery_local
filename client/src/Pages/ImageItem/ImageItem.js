@@ -6,6 +6,7 @@ import ImageItemComments from "./ImageItemComments";
 import AlertError from "../../components/AlertError";
 import { BiCheck } from "react-icons/bi";
 import BtnLoader from "../../components/BtnLoader";
+
 export default function ImageItem() {
   const {
     postImage,

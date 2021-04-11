@@ -16,7 +16,7 @@ const DELETE_COMMENT = (id) => `${URL_COMMENTS}/${id}`;
 const DELETE_ALL_COMMENTS = (id) => `${URL_COMMENTS}/all/${id}`;
 const EDIT_COMMENT = (id) => `${URL_COMMENTS}/${id}`;
 const LIKE_COMMENT = (id) => `${URL_COMMENTS}/like/${id}`;
-
+const DISLIKE_COMMENT = (id) => `${URL_COMMENTS}/dislike/${id}`;
 export {
   API_URL,
   // end points images
@@ -34,4 +34,5 @@ export {
   DELETE_ALL_COMMENTS,
   EDIT_COMMENT,
   LIKE_COMMENT,
+  DISLIKE_COMMENT,
 };

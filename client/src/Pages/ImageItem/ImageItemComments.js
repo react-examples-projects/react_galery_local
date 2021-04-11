@@ -1,13 +1,9 @@
+import PropTypes from "prop-types";
 import Loader from "react-loader-spinner";
 import AlertError from "../../components/AlertError";
 import ImageItemComment from "./ImageItemComment";
 
-export default function ImageItemComments({
-  setComments,
-  comments,
-  isLoading,
-  isError,
-}) {
+function ImageItemComments({ setComments, comments, isLoading, isError }) {
   if (isLoading) {
     return (
       <Loader
@@ -51,3 +47,12 @@ export default function ImageItemComments({
     </div>
   );
 }
+
+ImageItemComments.propTypes = {
+  setComments: PropTypes.func.isRequired,
+  comments: PropTypes.array.isRequired,
+  isLoading: PropTypes.bool.isRequired,
+  isError: PropTypes.bool.isRequired,
+};
+
+export default ImageItemComments;

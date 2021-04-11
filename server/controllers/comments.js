@@ -38,6 +38,16 @@ async function likeComment(id) {
   return { id, likes };
 }
 
+async function dislikeComment(id) {
+  const commentLikes = await getComment(id);
+  const dislikes = commentLikes.dislikes + 1;
+  const commentUpdated = await CommentModel.updateOne(
+    { _id: id },
+    { dislikes }
+  );
+  return { id, dislikes };
+}
+
 module.exports = {
   getComments,
   deleteComment,
@@ -45,4 +55,5 @@ module.exports = {
   createComment,
   deleteAllCommentsInPost,
   likeComment,
+  dislikeComment,
 };

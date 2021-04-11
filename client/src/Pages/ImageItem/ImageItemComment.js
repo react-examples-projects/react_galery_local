@@ -1,10 +1,8 @@
-import { useState } from "react";
 import css from "./css/ImageItem.module.css";
-import { likeComment } from "../../helpers/api";
 import ReactionsCount from "../../components/ReactionsCount";
-
+import useReactions from "../../hooks/useReactions";
 export default function ImageItemComment({
-  _id,
+  _id: id,
   username,
   content,
   date,
@@ -12,27 +10,10 @@ export default function ImageItemComment({
   dislikes,
   setComments,
 }) {
-  const [isError, setError] = useState(false);
-
-  const onLike = async () => {
-    try {
-      setError(false);
-      const data = await likeComment(_id);
-      if (!data.ok) return setError(true);
-      setComments((comments) => {
-        const copy = [...comments];
-        const comment = copy.find((comment) => comment._id === _id);
-        comment.likes = data.data.likes;
-        console.log(comment);
-        return copy;
-      });
-    } catch (error) {
-      console.log(error);
-      setError(true);
-    }
-  };
-
-  const onDislike = () => {};
+  const { isError, onReaction, onDislike } = useReactions({
+    id,
+    setComments,
+  });
 
   return (
     <div className={`p-3 mb-4 bg-dark rounded shadow-sm ${css.comment}`}>
@@ -56,7 +37,7 @@ export default function ImageItemComment({
           </small>
         </time>
 
-        <ReactionsCount {...{ likes, dislikes, onLike, onDislike, isError }} />
+        <ReactionsCount {...{ likes, dislikes, onReaction, onDislike, isError }} />
       </div>
     </div>
   );

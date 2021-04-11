@@ -12,6 +12,7 @@ import {
   DELETE_ALL_COMMENTS,
   EDIT_COMMENT,
   LIKE_COMMENT,
+  DISLIKE_COMMENT,
 } from "../config/config";
 import { toArrayUrlFiles } from "./file";
 
@@ -75,4 +76,9 @@ export const deleteAllCommentsInPost = async (id_post) => {
 export const likeComment = async (id) => {
   const data = await xhr(LIKE_COMMENT(id), null, "POST");
   return data;
-}
+};
+
+export const dislikeComment = async (id) => {
+  const data = await xhr(DISLIKE_COMMENT(id), null, "POST");
+  return data;
+};
