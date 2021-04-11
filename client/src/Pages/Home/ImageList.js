@@ -6,9 +6,11 @@ import ThereNotPosts from "../../images/empty.svg";
 function ImageList({ images, setImages, isErrorDownloadingImages }) {
   if (isErrorDownloadingImages) {
     return (
-      <h5 className="text-danger fw-bolder mt-5 d-flex align-items-center">
-        <BiError />
-        <span className="mx-2">Ocurrió un error, verifica tu conexión</span>
+      <h5 className="fw-bolder mt-5 d-flex align-items-center">
+        <BiError style={{ fill: "#dc3545" }} />
+        <span className="mx-2 text-danger">
+          Ocurrió un error, verifica tu conexión
+        </span>
       </h5>
     );
   }

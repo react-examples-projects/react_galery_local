@@ -1,9 +1,11 @@
 import { useState, useEffect } from "react";
 import { getCommentsByPost } from "../helpers/api";
 import { useParams } from "react-router-dom";
+import useRedirect from "./useRedirect";
 
 export default function useComments() {
   const { id } = useParams();
+  const isCorrect = useRedirect(/^[0-9a-fA-F]{24}$/.test(id));
   const [comments, setComments] = useState([]);
   const [isLoading, setLoading] = useState(true);
   const [isError, setError] = useState(false);
@@ -20,8 +22,8 @@ export default function useComments() {
       }
       setLoading(false);
     }
-    getComments();
-  }, [id]);
+    isCorrect && getComments();
+  }, [id, isCorrect]);
   return {
     setComments,
     comments,

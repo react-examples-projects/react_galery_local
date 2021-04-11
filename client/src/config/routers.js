@@ -13,6 +13,11 @@ const routers = [
     exact: true,
   },
   {
+    path: "/not-found",
+    component: NotFound,
+    exact: true,
+  },
+  {
     component: NotFound,
   },
 ];

@@ -2,9 +2,11 @@ import { useEffect, useState, useRef } from "react";
 import { useParams } from "react-router-dom";
 import { getPost, createComment } from "../helpers/api";
 import useComments from "./useComments";
+import useRedirect from "./useRedirect";
 
 export default function useImagesItem() {
   const { id } = useParams();
+  const isCorrect = useRedirect(/^[0-9a-fA-F]{24}$/.test(id));
   const [postImage, setPostImage] = useState({});
   const [postContent, setPostContent] = useState("");
   const [isLoading, setLoading] = useState(true);
@@ -13,7 +15,6 @@ export default function useImagesItem() {
   const [isErrorInComment, setErrorInComment] = useState(false);
   const { setComments, ...commentsProps } = useComments();
   const refEditor = useRef();
-
   const handleChangeContent = (content) => {
     setPostContent(content);
   };
@@ -49,8 +50,8 @@ export default function useImagesItem() {
       }
     }
 
-    getPostImage();
-  }, [id]);
+    isCorrect && getPostImage();
+  }, [id, isCorrect]);
 
   return {
     postImage,
