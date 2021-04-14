@@ -1,6 +1,7 @@
 import css from "./css/ImageItem.module.css";
 import ReactionsCount from "../../components/ReactionsCount";
-import useReactions from "../../hooks/useReactions";
+import useReactionsComments from "../../hooks/useReactionsComments";
+
 export default function ImageItemComment({
   _id: id,
   username,
@@ -10,7 +11,7 @@ export default function ImageItemComment({
   dislikes,
   setComments,
 }) {
-  const { isError, onReaction, onDislike } = useReactions({
+  const { isError, onReaction, onDislike } = useReactionsComments({
     id,
     setComments,
   });

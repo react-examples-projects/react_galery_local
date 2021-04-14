@@ -7,6 +7,8 @@ const {
   deleteImageDatabase,
   editTitleImage,
   getPostById,
+  likePost,
+  dislikePost,
 } = require("../controllers/images");
 const {
   imageSchemaValidator,
@@ -84,5 +86,27 @@ router.get(
     }
   }
 );
+
+router.post("/like/:id", async (req, res) => {
+  try {
+    const id = req.params.id;
+    const image = await likePost(id);
+    res.json(success(image));
+  } catch (err) {
+    console.log(err);
+    sendError(res, `An error ocurred while like the image`);
+  }
+});
+
+router.post("/dislike/:id", async (req, res) => {
+  try {
+    const id = req.params.id;
+    const image = await dislikePost(id);
+    res.json(success(image));
+  } catch (err) {
+    console.log(err);
+    sendError(res, `An error ocurred while dislike the image`);
+  }
+});
 
 module.exports = router;

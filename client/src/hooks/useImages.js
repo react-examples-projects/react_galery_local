@@ -4,7 +4,6 @@ import {
   saveImagesInStorage,
   getImagesFromStorage,
   existsImagesInStorage,
-  removeImagesFromStorage,
 } from "../helpers/storage";
 
 export default function useImages() {
@@ -24,7 +23,7 @@ export default function useImages() {
         if (!data.ok) return setIsErrorDownloadingImages(true);
         setImages(data.data);
         saveImagesInStorage(data.data);
-      } catch(err) {
+      } catch (err) {
         console.log(err);
         setIsErrorDownloadingImages(true);
       } finally {
@@ -47,15 +46,15 @@ export default function useImages() {
       if (!res.ok) return setIsErrorSendingImages(true);
 
       setImages((imgs) => {
-        removeImagesFromStorage();
-        return [...imgs, ...res.data];
+        const newImages = [...imgs, ...res.data];
+        saveImagesInStorage(newImages);
+        return newImages;
       });
     } catch (err) {
       console.log(err);
       setIsErrorSendingImages(true);
-    } finally {
-      setUploadingImages(false);
     }
+    setUploadingImages(false);
     if (inputFile.current) inputFile.current.value = null;
   };
 

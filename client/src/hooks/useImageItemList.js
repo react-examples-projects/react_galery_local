@@ -50,7 +50,7 @@ export default function useImageItemList({ title, id, filename, setImages }) {
       const data = await deleteImage(id, filename);
       const data2 = await deleteAllCommentsInPost(id);
       setLoadingDelete(false);
-      
+
       if (!data2.ok)
         alert("Ocurrió un error al eliminar los comentarios de la publicación");
       if (!data.ok) return setErrorDeleting(true);
@@ -63,9 +63,8 @@ export default function useImageItemList({ title, id, filename, setImages }) {
     } catch {
       setErrorEditing(false);
       setErrorDeleting(true);
-    } finally {
-      setLoadingDelete(false);
     }
+    setLoadingDelete(false);
   };
 
   useEffect(() => {
@@ -78,6 +77,7 @@ export default function useImageItemList({ title, id, filename, setImages }) {
   }, []);
 
   return {
+    setImages,
     setTitleImage,
     isEditing,
     titleImage,

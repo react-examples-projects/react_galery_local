@@ -8,6 +8,8 @@ const GET_POST = (id) => `${URL_IMAGES}/${id}`;
 const CREATE_POSTS = URL_IMAGES + "/";
 const DELETE_POST = (id) => `${URL_IMAGES}/${id}`;
 const EDIT_POST = (id) => `${URL_IMAGES}/${id}`;
+const LIKE_POST = (id) => `${URL_IMAGES}/like/${id}`;
+const DISLIKE_POST = (id) => `${URL_IMAGES}/dislike/${id}`;
 
 // Endpoints for comments post CRUD
 const GET_COMMENTS = (id) => `${URL_COMMENTS}/${id}`;
@@ -26,6 +28,8 @@ export {
   CREATE_POSTS,
   DELETE_POST,
   EDIT_POST,
+  LIKE_POST,
+  DISLIKE_POST,
   // end points comments
   URL_COMMENTS,
   GET_COMMENTS,

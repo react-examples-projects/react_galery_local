@@ -5,10 +5,11 @@ import { Link } from "react-router-dom";
 import TextError from "../../components/TextError";
 import useImageItemList from "../../hooks/useImageItemList";
 import ReactionsCount from "../../components/ReactionsCount";
-
+import useReactionsImages from "../../hooks/useReactionsImages";
 function ImageItem(props) {
-  const { url, title, id } = props;
+  const { url, title, id, likes, dislikes } = props;
   const {
+    setImages,
     setTitleImage,
     isEditing,
     titleImage,
@@ -20,6 +21,7 @@ function ImageItem(props) {
     deleteItem,
     toggleEditing,
   } = useImageItemList(props);
+  const { onReaction, isError } = useReactionsImages({ id, setImages });
 
   return (
     <div className="col-lg-4 col-md-4 col-sm-6 mb-5 col-image p-1">
@@ -74,7 +76,7 @@ function ImageItem(props) {
               )}
             </div>
 
-            <ReactionsCount />
+            <ReactionsCount {...{ onReaction, dislikes, likes, isError }} />
           </div>
         </div>
 

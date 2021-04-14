@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { likeComment, dislikeComment } from "../helpers/api";
 
-export default function useReactions({ id, setComments }) {
+export default function useReactionsComments({ id, setComments }) {
   const [isError, setError] = useState(false);
 
   const onReaction = async (isLike = true) => {

@@ -5,6 +5,8 @@ import {
   GET_POST,
   DELETE_POST,
   EDIT_POST,
+  LIKE_POST,
+  DISLIKE_POST,
   // comments endpoints
   GET_COMMENTS,
   CREATE_COMMENT,
@@ -24,6 +26,8 @@ export const xhr = async (url, body = null, method = "GET") => {
   const res = await xhr.json();
   return res;
 };
+
+// posts images
 
 export const getImages = async () => {
   const data = await xhr(GET_POSTS);
@@ -57,6 +61,18 @@ export const editTitleImage = async ({ id, filename, title }) => {
   const res = await xhr(EDIT_POST(id), data, "PUT");
   return res;
 };
+
+export const likeImage = async (id) => {
+  const data = await xhr(LIKE_POST(id), null, "POST");
+  return data;
+};
+
+export const dislikeImage = async (id) => {
+  const data = await xhr(DISLIKE_POST(id), null, "POST");
+  return data;
+};
+
+// comments
 
 export const getCommentsByPost = async (id) => {
   const data = await xhr(GET_COMMENTS(id));

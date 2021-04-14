@@ -39,10 +39,26 @@ async function getPostById(id) {
   return data.toObject();
 }
 
+async function likePost(id) {
+  const commentLikes = await getPostById(id);
+  const likes = commentLikes.likes + 1;
+  const commentUpdated = await ImageModel.updateOne({ _id: id }, { likes });
+  return { id, likes };
+}
+
+async function dislikePost(id) {
+  const commentLikes = await getPostById(id);
+  const dislikes = commentLikes.dislikes + 1;
+  const commentUpdated = await ImageModel.updateOne({ _id: id }, { dislikes });
+  return { id, dislikes };
+}
+
 module.exports = {
   saveFilesDatabase,
   getImagesDatabase,
   deleteImageDatabase,
   editTitleImage,
   getPostById,
+  likePost,
+  dislikePost,
 };
