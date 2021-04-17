@@ -1,10 +1,19 @@
-const formatFileProps = ({ title, url, _id, filename, likes, dislikes }) => ({
+const formatFileProps = ({
+  title,
+  url,
+  _id,
+  filename,
+  likes,
+  dislikes,
+  comments,
+}) => ({
   title,
   url,
   id: _id,
   filename,
   likes,
   dislikes,
+  comments,
 });
 
 const toArrayFormatFile = (array) => {
