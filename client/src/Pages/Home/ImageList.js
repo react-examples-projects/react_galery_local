@@ -33,7 +33,7 @@ function ImageList({ images, setImages, isErrorDownloadingImages }) {
   }
 
   return (
-    <div className="row w-100 mx-auto">
+    <div className="row w-100 mx-auto mb-5">
       {images.map(({ id, ...props }) => {
         return <ImageItem {...props} {...{ id, setImages }} key={id} />;
       })}

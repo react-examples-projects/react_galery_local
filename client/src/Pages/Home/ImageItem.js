@@ -1,5 +1,5 @@
 import PropTypes from "prop-types";
-import { BiTrash, BiEditAlt } from "react-icons/bi";
+import { BiTrash, BiEditAlt, BiX } from "react-icons/bi";
 import Loader from "react-loader-spinner";
 import { Link } from "react-router-dom";
 import TextError from "../../components/TextError";
@@ -7,7 +7,7 @@ import useImageItemList from "../../hooks/useImageItemList";
 import ReactionsCount from "../../components/ReactionsCount";
 import useReactionsImages from "../../hooks/useReactionsImages";
 function ImageItem(props) {
-  const { url, title, id, likes, dislikes } = props;
+  const { url, title, id, likes, dislikes, comments } = props;
   const {
     setImages,
     setTitleImage,
@@ -57,7 +57,7 @@ function ImageItem(props) {
                 />
               ) : (
                 <button className="btn p-0 me-1" onClick={toggleEditing}>
-                  <BiEditAlt />
+                  {isEditing ? <BiX /> : <BiEditAlt />}
                 </button>
               )}
 
@@ -76,7 +76,9 @@ function ImageItem(props) {
               )}
             </div>
 
-            <ReactionsCount {...{ onReaction, dislikes, likes, isError }} />
+            <ReactionsCount
+              {...{ onReaction, dislikes, likes, isError, comments }}
+            />
           </div>
         </div>
 

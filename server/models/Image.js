@@ -6,6 +6,7 @@ const ImageShema = new Schema({
   date: { type: String, required: true },
   likes: { type: Number, default: 0 },
   dislikes: { type: Number, default: 0 },
+  comments: { type: Number, default: 0 },
 });
 
 module.exports = model("Image", ImageShema);

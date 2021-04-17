@@ -1,4 +1,5 @@
 const CommentModel = require("../models/Comment");
+const ImageModel = require("../models/Image");
 
 async function getComments(id_post) {
   const comments = await CommentModel.find({ id_post });
@@ -26,7 +27,13 @@ async function editComment(id, payload) {
 }
 
 async function createComment(payload) {
+  async function addCommentCount(id) {
+    const imagePost = await ImageModel.findById(id);
+    await ImageModel.findByIdAndUpdate(id, { likes: imagePost.likes + 1 });
+  }
+
   const comment = new CommentModel(payload);
+  await addCommentCount(payload.id_post);
   const data = await comment.save();
   return data;
 }

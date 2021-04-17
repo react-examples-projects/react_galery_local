@@ -1,5 +1,9 @@
 import { useState, useEffect } from "react";
 import { getCommentsByPost } from "../helpers/api";
+import {
+  savePostItemComment,
+  getCommentsPostItemFromStorage,
+} from "../helpers/storage";
 import { useParams } from "react-router-dom";
 import useRedirect from "./useRedirect";
 
@@ -16,13 +20,22 @@ export default function useComments() {
         const comments = await getCommentsByPost(id);
         if (!comments.ok) return setError(true);
         setComments(comments.data);
+        savePostItemComment(id, comments.data);
       } catch (err) {
         console.log(err);
         setError(true);
       }
       setLoading(false);
     }
-    isCorrect && getComments();
+    if (isCorrect) {
+      const postImageComments = getCommentsPostItemFromStorage(id);
+      if (!postImageComments) {
+        getComments();
+      } else {
+        setLoading(false);
+        setComments(postImageComments);
+      }
+    }
   }, [id, isCorrect]);
   return {
     setComments,
