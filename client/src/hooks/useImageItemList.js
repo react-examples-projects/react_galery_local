@@ -27,7 +27,10 @@ export default function useImageItemList({ title, id, filename, setImages }) {
     setErrorEditing(false);
     try {
       const data = await editTitleImage({ id, filename, title: titleImage });
-      if (!data.ok) return setErrorEditing(true);
+      if (!data.ok) {
+        setErrorEditing(true);
+        return setLoadingEditing(false);
+      }
       setImages((imgs) => {
         const copy = [...imgs];
         const filtered = copy.find((img) => img.id === id);
@@ -53,8 +56,11 @@ export default function useImageItemList({ title, id, filename, setImages }) {
 
       if (!data2.ok)
         alert("Ocurrió un error al eliminar los comentarios de la publicación");
-      if (!data.ok) return setErrorDeleting(true);
 
+      if (!data.ok) {
+        setErrorDeleting(true);
+        return setLoadingDelete(false);
+      }
       setImages((imgs) => {
         const filterImgs = imgs.filter((img) => img.id !== data.data.id);
         removeImagesFromStorage();

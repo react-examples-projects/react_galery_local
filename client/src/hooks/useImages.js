@@ -20,15 +20,17 @@ export default function useImages() {
     async function _getImages() {
       try {
         const data = await getImages();
-        if (!data.ok) return setIsErrorDownloadingImages(true);
+        if (!data.ok) {
+          setIsErrorDownloadingImages(true);
+          return setDownloadingImages(false);
+        }
         setImages(data.data);
         saveImagesInStorage(data.data);
       } catch (err) {
         console.log(err);
         setIsErrorDownloadingImages(true);
-      } finally {
-        setDownloadingImages(false);
       }
+      setDownloadingImages(false);
     }
     if (existsImagesInStorage()) {
       setDownloadingImages(false);

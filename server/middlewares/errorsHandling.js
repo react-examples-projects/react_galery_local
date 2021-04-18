@@ -1,3 +1,10 @@
+const { sendError } = require("../helpers/responses");
+
+function errorRouterHandler(err, req, res, next) {
+  console.log(err.errLog);
+  sendError(res, err.errClient);
+}
+
 function clientErrorHandler(err, req, res, next) {
   // catch errors ajax
   if (req.xhr) {
@@ -10,7 +17,7 @@ function clientErrorHandler(err, req, res, next) {
 }
 
 function errorHandler(err, req, res, next) {
-  console.log(err)
+  console.log(err);
   // catch errors while streaming
   if (req.headersSent) {
     next(err);
@@ -19,6 +26,7 @@ function errorHandler(err, req, res, next) {
 }
 
 module.exports = {
+  errorRouterHandler,
   clientErrorHandler,
   errorHandler,
 };

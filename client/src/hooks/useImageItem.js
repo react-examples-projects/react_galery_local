@@ -30,7 +30,10 @@ export default function useImagesItem() {
       fd.append("id_post", id);
       fd.append("content", postContent);
       const data = await createComment(fd);
-      if (!data.ok) return setErrorInComment(true);
+      if (!data.ok) {
+        setErrorInComment(true);
+        return setLoadingComenting(false);
+      }
       setComments((comments) => [data.data, ...comments]);
     } catch {
       setErrorInComment(true);

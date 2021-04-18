@@ -7,7 +7,7 @@ const cors = require("cors");
 const app = express();
 const { PORT } = require("./config/config");
 const { success } = require("./helpers/responses");
-const imagesRouters = require("./routers/images");
+const imagePostsRouter = require("./routers/images");
 const commentsRouters = require("./routers/comments");
 const {
   clientErrorHandler,
@@ -22,13 +22,15 @@ app.use(morgan("dev"));
 app.use(cors());
 app.use(express.static(__dirname + "/uploads"));
 
-// routes
-app.use("/api/posts", imagesRouters);
-app.use("/api/comments", commentsRouters);
+// routes middlewares
+imagePostsRouter(app);
+commentsRouters(app);
+
 app.get("/", (req, res) => {
   res.json(success("Index route is empty"));
 });
 
+// errors
 app.use(clientErrorHandler);
 app.use(errorHandler);
 

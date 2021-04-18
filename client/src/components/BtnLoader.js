@@ -11,7 +11,7 @@ function BtnLoader({ text, children, isLoading, className, ...props }) {
       {...props}
     >
       {isLoading ? (
-        <Loader type="Oval" color="#000000b2" height={19} width={19} />
+        <Loader type="Oval" color="#dee3ea" height={19} width={19} />
       ) : (
         text || children
       )}
