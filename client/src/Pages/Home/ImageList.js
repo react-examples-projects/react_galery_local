@@ -2,7 +2,6 @@ import PropTypes from "prop-types";
 import ImageItem from "./ImageItem";
 import { BiError } from "react-icons/bi";
 import ThereNotPosts from "../../images/empty.svg";
-
 function ImageList({ images, setImages, isErrorDownloadingImages }) {
   if (isErrorDownloadingImages) {
     return (
@@ -34,8 +33,8 @@ function ImageList({ images, setImages, isErrorDownloadingImages }) {
 
   return (
     <div className="row w-100 mx-auto mb-5">
-      {images.map(({ id, ...props }) => {
-        return <ImageItem {...props} {...{ id, setImages }} key={id} />;
+      {images.map((props) => {
+        return <ImageItem {...props} {...{ setImages }} key={props.id} />;
       })}
     </div>
   );

@@ -5,8 +5,10 @@ import useImageItemList from "../../hooks/useImageItemList";
 import ReactionsCount from "../../components/ReactionsCount";
 import useReactionsImages from "../../hooks/useReactionsImages";
 import EditAndRemove from "../../components/EditAndRemove";
+import React from "react";
 function ImageItem(props) {
   const { url, title, id, likes, dislikes, comments } = props;
+  console.log("ImageItem nro.", id);
   const {
     setImages,
     setTitleImage,
@@ -81,4 +83,4 @@ ImageItem.propTypes = {
   id: PropTypes.oneOfType([PropTypes.number, PropTypes.string]).isRequired,
 };
 
-export default ImageItem;
+export default React.memo(ImageItem);

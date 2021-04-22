@@ -29,12 +29,9 @@ export default function useComments() {
     }
     if (isCorrect) {
       const postImageComments = getCommentsPostItemFromStorage(id);
-      if (!postImageComments) {
-        getComments();
-      } else {
-        setLoading(false);
-        setComments(postImageComments);
-      }
+      if (!postImageComments) return getComments();
+      setLoading(false);
+      setComments(postImageComments);
     }
   }, [id, isCorrect]);
   return {

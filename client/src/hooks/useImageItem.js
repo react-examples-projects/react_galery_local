@@ -1,7 +1,11 @@
 import { useEffect, useState, useRef } from "react";
 import { useParams } from "react-router-dom";
 import { getPost, createComment } from "../helpers/api";
-import { savePostItem, getPostItemFromStorage, savePostItemComment } from "../helpers/storage";
+import {
+  savePostItem,
+  getPostItemFromStorage,
+  savePostItemComment,
+} from "../helpers/storage";
 import useComments from "./useComments";
 import useRedirect from "./useRedirect";
 
@@ -58,14 +62,12 @@ export default function useImagesItem() {
         setLoading(false);
       }
     }
+    
     if (isCorrect) {
       const postCache = getPostItemFromStorage(id);
-      if (!postCache) {
-        getPostImage();
-      } else {
-        setLoading(false);
-        setPostImage(postCache);
-      }
+      if (!postCache) return getPostImage();
+      setLoading(false);
+      setPostImage(postCache);
     }
   }, [id, isCorrect]);
 

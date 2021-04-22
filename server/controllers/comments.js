@@ -29,34 +29,28 @@ async function editComment(id, payload) {
 }
 
 async function createComment(payload) {
-  async function addCommentCount(id) {
-    const imagePost = await ImageModel.findById(id);
-    await ImageModel.findByIdAndUpdate(id, {
-      comments: imagePost.comments + 1,
-    });
-  }
-
   const comment = new CommentModel(payload);
-  await addCommentCount(payload.id_post);
+  await ImageModel.findByIdAndUpdate(payload.id_post, {
+    $inc: { comments: 1 },
+  });
   const data = await comment.save();
   return data;
 }
 
 async function likeComment(id) {
-  const commentLikes = await getComment(id);
-  const likes = commentLikes.likes + 1;
-  const commentUpdated = await CommentModel.updateOne({ _id: id }, { likes });
-  return { id, likes };
+  const updated = await CommentModel.findByIdAndUpdate(
+    { _id: id },
+    { $inc: { likes: 1 } }
+  );
+  return { id, likes: updated.likes + 1 };
 }
 
 async function dislikeComment(id) {
-  const commentLikes = await getComment(id);
-  const dislikes = commentLikes.dislikes + 1;
-  const commentUpdated = await CommentModel.updateOne(
+  const updated = await CommentModel.findByIdAndUpdate(
     { _id: id },
-    { dislikes }
+    { $inc: { dislikes: 1 } }
   );
-  return { id, dislikes };
+  return { id, dislikes: updated.dislikes + 1 };
 }
 
 module.exports = {

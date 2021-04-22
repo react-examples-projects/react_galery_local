@@ -40,29 +40,27 @@ async function getPostById(id) {
 }
 
 async function likePost(id) {
-  const commentLikes = await getPostById(id);
-  const likes = commentLikes.likes + 1;
-  const commentUpdated = await ImageModel.updateOne({ _id: id }, { likes });
-  return { id, likes };
+  const updated = await ImageModel.findByIdAndUpdate(
+    { _id: id },
+    { $inc: { likes: 1 } }
+  );
+  return { id, likes: updated.likes + 1 };
 }
 
 async function dislikePost(id) {
-  const commentLikes = await getPostById(id);
-  const dislikes = commentLikes.dislikes + 1;
-  const commentUpdated = await ImageModel.updateOne({ _id: id }, { dislikes });
-  return { id, dislikes };
+  const updated = await ImageModel.findByIdAndUpdate(
+    { _id: id },
+    { $inc: { dislikes: 1 } }
+  );
+  return { id, dislikes: updated.dislikes + 1 };
 }
 
 async function removeOneComment(id) {
-  const post = await getPostById(id);
-  const data = await ImageModel.findByIdAndUpdate(
+  const updated = await ImageModel.findByIdAndUpdate(
     { _id: id },
-    {
-      comments: post.comments - 1,
-    }
+    { $inc: { comments: -1 } }
   );
-
-  return data;
+  return { id, comments: updated.comments - 1 };
 }
 
 module.exports = {

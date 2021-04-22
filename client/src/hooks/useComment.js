@@ -13,13 +13,14 @@ export default function useComment({ id, setComments }) {
   const deleteItem = async () => {
     setErrorDeleteComment(false);
     try {
+      setLoadingDeleteComment(true);
       const data = await deleteComment(id, id_post);
       if (!data.ok) {
         setLoadingDeleteComment(false);
         return setErrorDeleteComment(true);
       }
       setComments((comments) => {
-       // removeCommentByIdPost(post_id);
+        removeCommentByIdPost(id, id_post);
         return [...comments].filter((cms) => cms._id !== id);
       });
     } catch (err) {

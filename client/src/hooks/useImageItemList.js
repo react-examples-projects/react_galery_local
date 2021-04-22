@@ -77,7 +77,7 @@ export default function useImageItemList({ title, id, filename, setImages }) {
     function toggleEsc(e) {
       if (e.keyCode === 27) setEditing(false);
     }
-
+    
     window.addEventListener("keydown", toggleEsc);
     return () => window.removeEventListener("keydown", toggleEsc);
   }, []);

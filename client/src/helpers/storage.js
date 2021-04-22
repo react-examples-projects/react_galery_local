@@ -41,9 +41,8 @@ export function getCommentsPostItemFromStorage(postId) {
   return getData(`comments-${postId}`);
 }
 
-export function removeCommentByIdPost(id) {
-  const comments = getCommentsPostItemFromStorage(id);
-  console.log(comments)
+export function removeCommentByIdPost(id, id_post) {
+  const comments = getCommentsPostItemFromStorage(id_post);
   const filters = comments.filter((c) => c._id !== id);
-  savePostItemComment(id, filters);
+  savePostItemComment(id_post, filters);
 }
