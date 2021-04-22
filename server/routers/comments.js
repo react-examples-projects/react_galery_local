@@ -66,7 +66,8 @@ function commentsRouter(app) {
     async (req, res, next) => {
       try {
         const id = req.params.id;
-        const data = await deleteComment(id);
+        const id_post = req.body.id_post;
+        const data = await deleteComment(id, id_post);
         res.json(success({ id, ...data }));
       } catch (err) {
         next({

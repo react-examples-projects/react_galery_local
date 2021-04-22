@@ -98,3 +98,10 @@ export const dislikeComment = async (id) => {
   const data = await xhr(DISLIKE_COMMENT(id), null, "POST");
   return data;
 };
+
+export const deleteComment = async (id, id_post) => {
+  const fd = new FormData();
+  fd.append("id_post", id_post);
+  const data = await xhr(DELETE_COMMENT(id), fd, "DELETE");
+  return data;
+};

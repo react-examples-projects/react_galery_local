@@ -1,7 +1,7 @@
 import { useEffect, useState, useRef } from "react";
 import { useParams } from "react-router-dom";
 import { getPost, createComment } from "../helpers/api";
-import { savePostItem, getPostItemFromStorage } from "../helpers/storage";
+import { savePostItem, getPostItemFromStorage, savePostItemComment } from "../helpers/storage";
 import useComments from "./useComments";
 import useRedirect from "./useRedirect";
 
@@ -34,7 +34,11 @@ export default function useImagesItem() {
         setErrorInComment(true);
         return setLoadingComenting(false);
       }
-      setComments((comments) => [data.data, ...comments]);
+      setComments((comments) => {
+        const newComments = [data.data, ...comments];
+        savePostItemComment(id, newComments);
+        return newComments;
+      });
     } catch {
       setErrorInComment(true);
     }

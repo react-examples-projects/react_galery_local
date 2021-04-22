@@ -1,11 +1,10 @@
 import PropTypes from "prop-types";
-import { BiTrash, BiEditAlt, BiX } from "react-icons/bi";
-import Loader from "react-loader-spinner";
 import { Link } from "react-router-dom";
 import TextError from "../../components/TextError";
 import useImageItemList from "../../hooks/useImageItemList";
 import ReactionsCount from "../../components/ReactionsCount";
 import useReactionsImages from "../../hooks/useReactionsImages";
+import EditAndRemove from "../../components/EditAndRemove";
 function ImageItem(props) {
   const { url, title, id, likes, dislikes, comments } = props;
   const {
@@ -46,35 +45,16 @@ function ImageItem(props) {
           </div>
           <hr className="m-0 p-0 mt-2" />
           <div className="col-md-12 icons p-0 d-flex justify-content-between align-items-center">
-            <div>
-              {isLoadingEditing ? (
-                <Loader
-                  color="#dee3ea"
-                  type="Oval"
-                  width={18}
-                  height={18}
-                  className="loader-item"
-                />
-              ) : (
-                <button className="btn p-0 me-1" onClick={toggleEditing}>
-                  {isEditing ? <BiX /> : <BiEditAlt />}
-                </button>
-              )}
-
-              {isLoadingDelete ? (
-                <Loader
-                  color="#dee3ea"
-                  type="Oval"
-                  width={18}
-                  height={18}
-                  className="loader-item"
-                />
-              ) : (
-                <button className="btn p-0 me-1" onClick={() => deleteItem(id)}>
-                  <BiTrash />
-                </button>
-              )}
-            </div>
+            <EditAndRemove
+              {...{
+                isLoadingEditing,
+                isEditing,
+                toggleEditing,
+                isLoadingDelete,
+                deleteItem,
+                id,
+              }}
+            />
 
             <ReactionsCount
               {...{ onReaction, dislikes, likes, isError, comments }}

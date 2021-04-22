@@ -40,3 +40,10 @@ export function savePostItemComment(postId, comments) {
 export function getCommentsPostItemFromStorage(postId) {
   return getData(`comments-${postId}`);
 }
+
+export function removeCommentByIdPost(id) {
+  const comments = getCommentsPostItemFromStorage(id);
+  console.log(comments)
+  const filters = comments.filter((c) => c._id !== id);
+  savePostItemComment(id, filters);
+}

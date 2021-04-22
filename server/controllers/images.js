@@ -53,6 +53,18 @@ async function dislikePost(id) {
   return { id, dislikes };
 }
 
+async function removeOneComment(id) {
+  const post = await getPostById(id);
+  const data = await ImageModel.findByIdAndUpdate(
+    { _id: id },
+    {
+      comments: post.comments - 1,
+    }
+  );
+
+  return data;
+}
+
 module.exports = {
   saveFilesDatabase,
   getImagesDatabase,
@@ -61,4 +73,5 @@ module.exports = {
   getPostById,
   likePost,
   dislikePost,
+  removeOneComment,
 };
