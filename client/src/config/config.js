@@ -1,4 +1,4 @@
-const API_URL = "http://localhost:5000/api";
+const API_URL = "http://190.79.205.193:5000/api";
 const URL_IMAGES = `${API_URL}/posts`;
 const URL_COMMENTS = `${API_URL}/comments`;
 

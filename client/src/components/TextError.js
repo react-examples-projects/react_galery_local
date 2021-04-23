@@ -8,7 +8,7 @@ function TextError({ text = "An error ocurred", ...props }) {
       {...props}
     >
       <BiError style={{ fill: "#dc3545" }} />
-      <span className="mx-2 text-danger">{text}</span>
+      <span className="ms-1 text-danger">{text}</span>
     </small>
   );
 }

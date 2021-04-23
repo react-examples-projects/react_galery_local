@@ -1,7 +1,6 @@
 import useImagesItem from "../../hooks/useImageItem";
 import Loader from "react-loader-spinner";
 import css from "./css/ImageItem.module.css";
-import SunEditor from "suneditor-react";
 import ImageItemComments from "./ImageItemComments";
 import AlertError from "../../components/AlertError";
 import { BiCheck } from "react-icons/bi";
@@ -15,8 +14,6 @@ export default function ImageItem() {
     isErrorInDownloadPost,
     isErrorInComment,
     handleSubmit,
-    handleChangeContent,
-    refEditor,
     commentsProps,
   } = useImagesItem();
 
@@ -41,36 +38,28 @@ export default function ImageItem() {
   return (
     <div className={`container mt-5 ${css.container}`}>
       <h2 className="mb-3 text-capitalize">{title}</h2>
-      <time dateTime={date} className="d-block text-muted mb-2 fw-normal">
-        Published at <small>{date}</small>
-      </time>
       <img
         src={url}
-        className="img-flud mw-100 d-block rounded-3"
+        className="img-flud mw-100 d-block rounded-3 w-100"
         alt={"Post upload at " + date}
       />
-      <h5 className="my-3">Deja tu comentario</h5>
+      <time dateTime={date} className="d-block text-muted mt-2 fw-normal">
+        Published at <small>{date}</small>
+      </time>
+
       <hr />
+      <h5 className="my-3">Deja tu comentario</h5>
 
       <form onSubmit={handleSubmit} className="mb-5" autoComplete="off">
         {isErrorInComment && (
           <AlertError text="Ocurrió al comentar la publicación" />
         )}
         <div className="mb-3">
-          <input
-            type="text"
-            name="username"
-            placeholder="Write your username"
+          <textarea
             className="form-control form-control-sm"
-            required
-          />
-        </div>
-        <div className="mb-3">
-          <SunEditor
-            ref={refEditor}
-            height={120}
-            onChange={handleChangeContent}
-            lang="es"
+            name="content"
+            placeholder="Deja tu comentario..."
+            rows="5"
             required
           />
         </div>

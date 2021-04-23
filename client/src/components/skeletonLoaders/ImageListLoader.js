@@ -8,9 +8,12 @@ export default function ImageListLoader() {
       <div className="row w-100 mx-auto mb-5">
         {Array(6)
           .fill(null)
-          .map((e) => {
+          .map((e, i) => {
             return (
-              <div className="col-lg-4 col-md-4 col-sm-6 mb-1 col-image p-1">
+              <div
+                className="col-lg-4 col-md-4 col-sm-6 mb-1 col-image p-1"
+                key={i}
+              >
                 <Skeleton height={250} />
                 <div className="mt-1">
                   <Skeleton height={30} />

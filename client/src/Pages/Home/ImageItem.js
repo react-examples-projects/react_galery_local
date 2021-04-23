@@ -5,7 +5,8 @@ import useImageItemList from "../../hooks/useImageItemList";
 import ReactionsCount from "../../components/ReactionsCount";
 import useReactionsImages from "../../hooks/useReactionsImages";
 import EditAndRemove from "../../components/EditAndRemove";
-import React from "react";
+import { ErrorBoundary } from "react-error-boundary";
+import ErrorImageItem from "../../components/errorBoundaries/ErrorImageItem";
 function ImageItem(props) {
   const { url, title, id, likes, dislikes, comments } = props;
   console.log("ImageItem nro.", id);
@@ -23,7 +24,7 @@ function ImageItem(props) {
     toggleEditing,
   } = useImageItemList(props);
   const { onReaction, isError } = useReactionsImages({ id, setImages });
-
+  //throw new Error("BOOM!");
   return (
     <div className="col-lg-4 col-md-4 col-sm-6 mb-5 col-image p-1">
       <figure className="w-100">
@@ -83,4 +84,10 @@ ImageItem.propTypes = {
   id: PropTypes.oneOfType([PropTypes.number, PropTypes.string]).isRequired,
 };
 
-export default React.memo(ImageItem);
+const wrapper = (props) => (
+  <ErrorBoundary FallbackComponent={ErrorImageItem}>
+    <ImageItem {...props} />
+  </ErrorBoundary>
+);
+
+export default wrapper;

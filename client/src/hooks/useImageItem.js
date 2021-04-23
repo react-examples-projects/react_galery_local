@@ -1,4 +1,4 @@
-import { useEffect, useState, useRef } from "react";
+import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { getPost, createComment } from "../helpers/api";
 import {
@@ -13,16 +13,11 @@ export default function useImagesItem() {
   const { id } = useParams();
   const isCorrect = useRedirect(/^[0-9a-fA-F]{24}$/.test(id));
   const [postImage, setPostImage] = useState({});
-  const [postContent, setPostContent] = useState("");
   const [isLoading, setLoading] = useState(true);
   const [isLoadingCommenting, setLoadingComenting] = useState(false);
   const [isErrorInDownloadPost, setErrorInDownloadPost] = useState(false);
   const [isErrorInComment, setErrorInComment] = useState(false);
   const { setComments, ...commentsProps } = useComments();
-  const refEditor = useRef();
-  const handleChangeContent = (content) => {
-    setPostContent(content);
-  };
 
   const handleSubmit = async (e) => {
     setErrorInComment(false);
@@ -30,9 +25,9 @@ export default function useImagesItem() {
     e.preventDefault();
     try {
       const fd = new FormData(e.target);
+      fd.append("username", "Anonymous");
       fd.append("date", new Date().toLocaleString());
       fd.append("id_post", id);
-      fd.append("content", postContent);
       const data = await createComment(fd);
       if (!data.ok) {
         setErrorInComment(true);
@@ -58,11 +53,10 @@ export default function useImagesItem() {
         savePostItem(id, data);
       } catch {
         setErrorInDownloadPost(true);
-      } finally {
-        setLoading(false);
       }
+      setLoading(false);
     }
-    
+
     if (isCorrect) {
       const postCache = getPostItemFromStorage(id);
       if (!postCache) return getPostImage();
@@ -78,8 +72,6 @@ export default function useImagesItem() {
     isErrorInDownloadPost,
     isErrorInComment,
     handleSubmit,
-    handleChangeContent,
-    refEditor,
     commentsProps: {
       ...commentsProps,
       setComments,
