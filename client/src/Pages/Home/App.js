@@ -1,10 +1,10 @@
 import useImages from "../../hooks/useImages";
 import ImageList from "./ImageList";
 import "react-loader-spinner/dist/loader/css/react-spinner-loader.css";
-import Loader from "react-loader-spinner";
 import headerImg from "../../images/header.png";
 import TextError from "../../components/TextError";
 import BtnLoader from "../../components/BtnLoader";
+import ImageListLoader from "../../components/skeletonLoaders/ImageListLoader";
 
 function App() {
   const {
@@ -42,7 +42,7 @@ function App() {
           {isErrorSendingImages && (
             <TextError text=" Ocurrió un error al subir las imágenes, verifica tu conexión" />
           )}
-          
+
           <BtnLoader
             text="Enviar"
             className="btn-sm px-5"
@@ -58,13 +58,7 @@ function App() {
       </header>
 
       {isDownloadingImages ? (
-        <Loader
-          type="Oval"
-          color="#dee3ea"
-          height={50}
-          width={50}
-          className="loader-app"
-        />
+        <ImageListLoader />
       ) : (
         <ImageList {...{ images, setImages, isErrorDownloadingImages }} />
       )}
