@@ -7,11 +7,6 @@ async function getComments(id_post) {
   return comments;
 }
 
-async function getComment(id) {
-  const comment = await CommentModel.findById(id);
-  return comment.toObject();
-}
-
 async function deleteComment(id, id_post) {
   await removeOneComment(id_post);
   const data = await CommentModel.deleteOne({ _id: id });
@@ -29,6 +24,7 @@ async function editComment(id, payload) {
 }
 
 async function createComment(payload) {
+
   const comment = new CommentModel(payload);
   await ImageModel.findByIdAndUpdate(payload.id_post, {
     $inc: { comments: 1 },

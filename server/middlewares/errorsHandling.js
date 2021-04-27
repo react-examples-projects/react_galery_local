@@ -9,7 +9,7 @@ function clientErrorHandler(err, req, res, next) {
   // catch errors ajax
   if (req.xhr) {
     return res.status(500).json({
-      error: err.message,
+      error: err.message || err,
       status: 500,
     });
   }
@@ -22,7 +22,7 @@ function errorHandler(err, req, res, next) {
   if (req.headersSent) {
     next(err);
   }
-  res.status(500).json({ error: err.message, status: 500 });
+  res.status(500).json({ error: err.message || err, status: 500 });
 }
 
 module.exports = {

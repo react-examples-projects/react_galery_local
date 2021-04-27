@@ -1,9 +1,10 @@
 import useImagesItem from "../../hooks/useImageItem";
-import Loader from "react-loader-spinner";
 import css from "./css/ImageItem.module.css";
 import ImageItemComments from "./ImageItemComments";
 import AlertError from "../../components/AlertError";
 import BtnLoader from "../../components/BtnLoader";
+import ImageItemLoader from "../../components/skeletonLoaders/ImageItemLoader";
+import HelmetMeta from "../../components/HelmetMeta";
 
 export default function ImageItem() {
   const {
@@ -16,18 +17,7 @@ export default function ImageItem() {
     commentsProps,
   } = useImagesItem();
 
-  if (isLoading) {
-    return (
-      <Loader
-        type="Oval"
-        color="#dee3ea"
-        height={80}
-        width={80}
-        className="d-flex justify-content-center"
-        style={{ marginTop: "22rem" }}
-      />
-    );
-  }
+  if (isLoading) return <ImageItemLoader />;
 
   if (isErrorInDownloadPost) {
     return <h4>Ocurrió un error al consultar el post</h4>;
@@ -36,6 +26,8 @@ export default function ImageItem() {
 
   return (
     <div className={`container mt-5 ${css.container}`}>
+      <HelmetMeta title={title} />
+      
       <h2 className="mb-3 text-capitalize">{title}</h2>
       <img
         src={url}

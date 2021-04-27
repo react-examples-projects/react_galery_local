@@ -23,7 +23,6 @@ const commentPostShemaValidator = Joi.object({
   id_post: Joi.string().regex(/^[0-9a-fA-F]{24}$/),
   username: Joi.string().required(),
   content: Joi.string().required(),
-  date: Joi.string().required(),
 });
 
 module.exports = {

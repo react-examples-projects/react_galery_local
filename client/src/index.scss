@@ -1,0 +1,140 @@
+@import url("https://fonts.googleapis.com/css2?family=Rubik:wght@300;400;500&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Manrope:wght@500;700&display=swap");
+
+$font: "Rubik", sans-serif;
+$white: rgb(222, 227, 234);
+:root {
+  --width: 250px;
+}
+
+* {
+  font-family: $font;
+  margin: 0;
+  padding: 0;
+  line-height: normal;
+  color: $white;
+}
+
+body {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  background: rgb(11, 14, 17);
+}
+
+svg {
+  fill: $white;
+}
+
+.form-control {
+  border-color: $white;
+  color: rgb(11, 14, 17);
+  background: $white;
+  &:focus {
+    background: $white;
+  }
+}
+
+.alert * {
+  color: rgb(11, 14, 17);
+  &.alert-danger svg {
+    fill: rgb(11, 14, 17);
+  }
+}
+
+.title {
+  font-family: "Manrope", sans-serif;
+  font-weight: bolder;
+}
+
+.header-file {
+  position: relative;
+  border-radius: 10px;
+  background: #11998e;
+  background: -webkit-linear-gradient(to right, #38ef7d, #11998e);
+  background: linear-gradient(to right, #38ef7d, #11998e);
+
+  .header-image {
+    position: absolute;
+    right: 0;
+    top: 0;
+    height: 100%;
+    width: auto;
+    border-bottom-left-radius: 50px;
+    border-top-left-radius: 50px;
+    border-bottom-right-radius: 10px;
+    border-top-right-radius: 10px;
+  }
+
+  form button[type="submit"] {
+    background-color: #fff;
+  }
+}
+
+.loader-app > svg {
+  display: block;
+  margin: auto;
+  margin-top: 4rem;
+}
+
+.loader-item {
+  display: inline-block;
+}
+
+.container-images {
+  max-width: 1000px;
+}
+
+.img-post {
+  object-fit: cover;
+  height: var(--width);
+}
+
+.col-image {
+  height: auto;
+  > figure {
+    position: relative;
+    height: var(--width);
+
+    &:hover > .image-overlay {
+      opacity: 1;
+      z-index: 5;
+    }
+
+    figcaption {
+      font-size: 80%;
+    }
+
+    form input {
+      font-size: 72%;
+    }
+  }
+
+  .image-overlay {
+    transition: all 0.2s ease;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    z-index: -1;
+    background: rgba(0, 0, 0, 0.486);
+    opacity: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 0.2rem;
+  }
+}
+
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: rgb(11, 14, 17);
+}
+
+::-webkit-scrollbar-thumb {
+  background: #2e3338;
+  border-radius: 3px;
+}

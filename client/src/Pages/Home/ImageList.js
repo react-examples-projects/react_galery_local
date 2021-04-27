@@ -20,7 +20,7 @@ function ImageList({ images, setImages, isErrorDownloadingImages }) {
         <img
           src={ThereNotPosts}
           alt="There not post yet"
-          className="d-block mx-auto"
+          className="d-block mx-auto mt-5"
           style={{
             width: "100%",
             maxWidth: "220px",
