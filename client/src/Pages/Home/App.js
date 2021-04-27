@@ -5,6 +5,7 @@ import headerImg from "../../images/header.png";
 import TextError from "../../components/TextError";
 import BtnLoader from "../../components/BtnLoader";
 import ImageListLoader from "../../components/skeletonLoaders/ImageListLoader";
+import HelmetMet from "../../components/HelmetMeta";
 
 function App() {
   const {
@@ -18,8 +19,14 @@ function App() {
     handleSubmit,
   } = useImages();
 
+  const title = "AnimeArtists | ";
+  const titleDynamic = isUploadingImages
+    ? title + "🖼️ Uploading photos..."
+    : title + "Home";
+
   return (
     <div className="App container container-images">
+      <HelmetMet title={titleDynamic} />
       <header className="header-file p-3 px-4 my-4 shadow-sm">
         <form encType="multipart/form-data" onSubmit={handleSubmit}>
           <div className="mb-3">
