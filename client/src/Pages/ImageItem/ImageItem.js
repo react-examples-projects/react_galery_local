@@ -3,7 +3,6 @@ import Loader from "react-loader-spinner";
 import css from "./css/ImageItem.module.css";
 import ImageItemComments from "./ImageItemComments";
 import AlertError from "../../components/AlertError";
-import { BiCheck } from "react-icons/bi";
 import BtnLoader from "../../components/BtnLoader";
 
 export default function ImageItem() {
@@ -58,15 +57,11 @@ export default function ImageItem() {
           <textarea
             className="form-control form-control-sm"
             name="content"
-            placeholder="Deja tu comentario..."
+            placeholder="Escribe lo que piensas..."
             rows="5"
             required
           />
         </div>
-        <small className="d-flex align-items-center text-muted my-2">
-          <BiCheck className="me-1" /> Todos los campos son obligatorios
-        </small>
-
         <BtnLoader
           type="submit"
           isLoading={isLoadingCommenting}

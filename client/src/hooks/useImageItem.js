@@ -26,8 +26,8 @@ export default function useImagesItem() {
     try {
       const fd = new FormData(e.target);
       fd.append("username", "Anonymous");
-      fd.append("date", new Date().toLocaleString());
       fd.append("id_post", id);
+      
       const data = await createComment(fd);
       if (!data.ok) {
         setErrorInComment(true);
@@ -41,6 +41,7 @@ export default function useImagesItem() {
     } catch {
       setErrorInComment(true);
     }
+    e.target.content.value = "";
     setLoadingComenting(false);
   };
 

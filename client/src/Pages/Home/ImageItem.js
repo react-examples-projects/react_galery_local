@@ -82,6 +82,9 @@ ImageItem.propTypes = {
   url: PropTypes.string.isRequired,
   title: PropTypes.string.isRequired,
   id: PropTypes.oneOfType([PropTypes.number, PropTypes.string]).isRequired,
+  likes: PropTypes.number.isRequired,
+  dislikes: PropTypes.number.isRequired,
+  comments: PropTypes.number.isRequired,
 };
 
 const wrapper = (props) => (

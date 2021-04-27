@@ -3,12 +3,12 @@ import ReactionsCount from "../../components/ReactionsCount";
 import EditAndRemove from "../../components/EditAndRemove";
 import useReactionsComments from "../../hooks/useReactionsComments";
 import useComment from "../../hooks/useComment";
+import PropTypes from "prop-types";
 
-export default function ImageItemComment({
+function ImageItemComment({
   _id: id,
   username,
   content,
-  date,
   likes,
   dislikes,
   setComments,
@@ -27,22 +27,23 @@ export default function ImageItemComment({
           __html: content,
         }}
       />
-      <time className="text-muted d-block mt-1" dateTime={date}>
-        <small
-          className="text-muted"
-          style={{
-            fontSize: ".675em",
-          }}
-        >
-          {date}
-        </small>
-      </time>
       <div className="me-auto d-flex align-items-center justify-content-between mt-2">
-        <EditAndRemove {...propsUseComments}/>
+        <EditAndRemove {...propsUseComments} id={id} />
         <ReactionsCount
-          {...{ likes, dislikes, onReaction, onDislike, isError }}
+          {...{ likes, dislikes, onReaction, onDislike, isError, comments: 0 }}
         />
       </div>
     </div>
   );
 }
+
+ImageItemComment.propTypes = {
+  _id: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
+  username: PropTypes.string.isRequired,
+  content: PropTypes.string.isRequired,
+  likes: PropTypes.number.isRequired,
+  dislikes: PropTypes.number.isRequired,
+  setComments: PropTypes.func.isRequired,
+};
+
+export default ImageItemComment;

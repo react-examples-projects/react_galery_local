@@ -19,6 +19,10 @@ export default function useImages() {
   useEffect(() => {
     async function _getImages() {
       try {
+        if (existsImagesInStorage()) {
+          setDownloadingImages(false);
+          setImages(getImagesFromStorage());
+        }
         const data = await getImages();
         if (!data.ok) {
           setIsErrorDownloadingImages(true);
@@ -31,10 +35,6 @@ export default function useImages() {
         setIsErrorDownloadingImages(true);
       }
       setDownloadingImages(false);
-    }
-    if (existsImagesInStorage()) {
-      setDownloadingImages(false);
-      return setImages(getImagesFromStorage());
     }
     _getImages();
   }, []);
